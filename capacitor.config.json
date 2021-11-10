@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "diwanet-app",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}
