@@ -1,31 +1,30 @@
 <ion-menu menuId="main-menu" content-id="main" type="overlay" #mainMenu>
   <ion-content>
-    <ion-grid fixed class="header-content white-text ">
-      <ion-row class="ion-align-items-center">
-        <ion-col size="6" class="ion-align-items-start">
-          <ion-img src="/assets/images/brand/diwanet_logo.png"></ion-img>
+    <ion-grid fixed class="header-content white-text">
+      <ion-row>
+        <ion-col size="12" style="height: 4rem;width: 100%;display: flex;align-items:center;justify-content: center;">
+          <img src="/assets/images/brand/diwanet_logo_dark.png" width="50%" />
         </ion-col>
         <!-- <ion-col size="6">
           <div class="margin-left-10" *ngIf="showVersion"><strong>v</strong>{{version}}</div>
         </ion-col> -->
       </ion-row>
     </ion-grid>
-    <ion-list>
-      <ion-item button detail="false" lines="none">
-        <ion-label>Login</ion-label>
-      </ion-item>
-      <ion-item button detail="false" lines="none">
-        <ion-label>Register</ion-label>
-      </ion-item>
-      <ion-item button detail="false" lines="none">
-        <ion-label>Location</ion-label>
-      </ion-item>
-      <ion-item button detail="false" lines="none">
-        <ion-label>Language</ion-label>
-      </ion-item>
+    <ion-item button detail="false" lines="none">
+      <ion-label>Login</ion-label>
+    </ion-item>
+    <ion-item button detail="false" lines="none">
+      <ion-label>Register</ion-label>
+    </ion-item>
+    <ion-item button detail="false" lines="none">
+      <ion-label>Location</ion-label>
+    </ion-item>
+    <ion-item button detail="false" lines="none">
+      <ion-label>Language</ion-label>
+    </ion-item>
 
-      <!-- Flags Item Start-->
-      <!-- <ion-item detail lines="none" (click)="expanded = !expanded"
+    <!-- Flags Item Start-->
+    <!-- <ion-item detail lines="none" (click)="expanded = !expanded"
         [detailIcon]="expanded ? 'chevron-down-outline' : 'chevron-forward-outline'">
         <ion-label>{{ 'MAIN_NAV.LANGUAGE' | translate}}</ion-label>
       </ion-item>
@@ -44,16 +43,15 @@
           </ion-col>
         </ion-row>
       </ion-item> -->
-      <!-- Flags Item End -->
+    <!-- Flags Item End -->
 
-      <ion-item button detail="false" lines="none" (click)="aboutModal()">
-        <ion-label>About</ion-label>
-      </ion-item>
+    <ion-item button detail="false" lines="none" (click)="aboutModal()">
+      <ion-label>About</ion-label>
+    </ion-item>
 
-      <ion-item button detail="false" lines="none" (click)="contactModal()">
-        <ion-label>Contact</ion-label>
-      </ion-item>
-    </ion-list>
+    <ion-item button detail="false" lines="none" (click)="contactModal()">
+      <ion-label>Contact</ion-label>
+    </ion-item>
     <ion-row class="ion-justify-content-start ion-padding links">
       <!-- <ion-icon name="logo-instagram" class="instagram margin-10" (click)="openInstagram()"></ion-icon>
       <ion-icon name="logo-facebook" class="facebook margin-10" (click)="openFacebook()"></ion-icon>
