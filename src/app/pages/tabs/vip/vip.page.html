@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar class="header-toolbar">
     <ion-title>
-      <img src="/assets/images/brand/diwanet_logo_dark.png" class="image-title">
+      <img src="/assets/images/brand/diwanet_logo_blue.png" class="image-title">
     </ion-title>
     <ion-buttons slot="start">
       <ion-menu-button menu="main-menu">
@@ -12,9 +12,28 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-item lines="none">
+    <ion-select [disabled]="loading" [value]="null" placeholder="Select Category"
+      (ionChange)="onSelectionChange($event)">
+
+      <ion-select-option [value]="null">None</ion-select-option>
+      <ion-select-option *ngFor="let cat of categories" [value]="cat.name">{{cat.name | titlecase}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-searchbar placeholder="Filter Servicemen" animated (ionChange)="onSearchChange($event)" inputmode="decimal"
+    mode="ios" type="decimal" [debounce]="250" [disabled]="loading"></ion-searchbar>
+  <div class="my-2 text-center" *ngIf="searchText">
+    <ion-text color="medium">
+      <span class="small-text">Search results for</span>
+    </ion-text> {{ searchText }}
+  </div>
+  <ng-container *ngIf="!loading;else loadingSpinner">
+
+    <app-user-card-view *ngFor="let user of users" [user]="user"></app-user-card-view>
+  </ng-container>
+
+  <ng-template #loadingSpinner>
+    <ion-progress-bar color="primary" type="indeterminate"></ion-progress-bar>
+  </ng-template>
 </ion-content>

@@ -1,3 +1,27 @@
 .image-title {
   width: 80px;
 }
+ion-thumbnail,
+.serviceman-image {
+  --border-radius: 100%;
+  border-radius: 100%;
+  width: 100px;
+}
+.ripple-parent {
+  position: relative;
+  overflow: hidden;
+}
+
+.serviceman-image {
+  border: 1px solid var(--ion-color-light);
+}
+.info {
+  display: flex;
+  align-items: center;
+  // justify-content: center;
+  font-size: 16px;
+  // color: var(--ion-color-light);
+}
+ion-button {
+  --box-shadow: none;
+}
