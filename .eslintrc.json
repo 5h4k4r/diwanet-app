@@ -46,7 +46,9 @@
             "style": "camelCase"
           }
         ],
-        "curly": "off"
+        "curly": "off",
+        "no-underscore-dangle": "off",
+        "naming-convention": "off"
       }
     },
     {
