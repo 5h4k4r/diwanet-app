@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor() {}
+  constructor() {
+    document.documentElement.style.setProperty('--ion-font-family', 'Opensans regular');
+  }
 }
