@@ -1,24 +1,29 @@
-<ion-tabs>
+<ion-tabs (ionTabsDidChange)="selectedTabChanged($event)">
 
   <ion-tab-bar slot="bottom">
     <ion-tab-button tab="vip">
-      <ion-icon name="cash-outline"></ion-icon>
+      <ion-icon [name]="activeTab === 'vip' ? 'cash' : 'cash-outline'"></ion-icon>
       <ion-label>VIP</ion-label>
     </ion-tab-button>
 
     <ion-tab-button tab="categories">
-      <ion-icon name="pricetag-outline"></ion-icon>
+      <ion-icon [name]="activeTab === 'categories' ? 'pricetag' : 'pricetag-outline'"></ion-icon>
       <ion-label>Categories</ion-label>
     </ion-tab-button>
 
     <ion-tab-button tab="news">
-      <ion-icon name="newspaper-outline"></ion-icon>
+      <ion-icon [name]="activeTab === 'news' ? 'newspaper' : 'newspaper-outline'"></ion-icon>
       <ion-label>News</ion-label>
     </ion-tab-button>
 
     <ion-tab-button tab="map">
-      <ion-icon name="map-outline"></ion-icon>
+      <ion-icon [name]="activeTab === 'map' ? 'map' : 'map-outline'"></ion-icon>
       <ion-label>Map</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="posts">
+      <ion-icon [name]="activeTab === 'posts' ? 'document' : 'document-outline'"></ion-icon>
+      <ion-label>Posts</ion-label>
     </ion-tab-button>
   </ion-tab-bar>
 

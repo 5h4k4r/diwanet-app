@@ -6,7 +6,12 @@ import { Component } from '@angular/core';
   styleUrls: ['tabs.page.scss']
 })
 export class TabsPage {
+  activeTab = 'vip';
+  constructor() { }
 
-  constructor() {}
+  selectedTabChanged(event: { tab: string }): void {
+    if (!event.tab || event.tab === this.activeTab) { return; }
 
+    this.activeTab = event.tab;
+  }
 }

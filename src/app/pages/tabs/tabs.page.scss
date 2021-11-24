@@ -1,1 +1,16 @@
-
+// .d-none {
+//   display: none;
+// }
+// .d-block {
+//   display: block;
+// }
+ion-label {
+  transition: opacity 0.3s ease-out;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+}
+.tab-selected ion-label {
+  opacity: 1;
+  height: auto;
+}

@@ -24,6 +24,10 @@ const routes: Routes = [
         loadChildren: () => import('./map/map.module').then(m => m.MapPageModule)
       },
       {
+        path: 'posts',
+        loadChildren: () => import('./posts/posts.module').then(m => m.PostsPageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/vip',
         pathMatch: 'full'
@@ -34,7 +38,7 @@ const routes: Routes = [
     path: '',
     redirectTo: '/tabs/vip',
     pathMatch: 'full'
-  }
+  },
 ];
 
 @NgModule({
