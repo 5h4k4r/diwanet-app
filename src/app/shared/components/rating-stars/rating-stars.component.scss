@@ -1,0 +1,16 @@
+::ng-deep input.star-5:checked ~ label.star:before,
+::ng-deep input.star-4:checked ~ label.star:before,
+::ng-deep input.star-3:checked ~ label.star:before,
+::ng-deep input.star-2:checked ~ label.star:before,
+::ng-deep input.star-1:checked ~ label.star:before {
+  text-shadow: none !important;
+  color: #fbc634 !important;
+}
+::ng-deep input.star-5 ~ label.star:before,
+::ng-deep input.star-4 ~ label.star:before,
+::ng-deep input.star-3 ~ label.star:before,
+::ng-deep input.star-2 ~ label.star:before,
+::ng-deep input.star-1 ~ label.star:before {
+  text-shadow: none !important;
+  color: var(--ion-color-medium);
+}
