@@ -1,0 +1,90 @@
+<ion-header class="ion-no-shadow ion-no-border position-absolute">
+  <ion-toolbar class="position-absolute">
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()" fill="clear" color="light">
+        <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="top-part">
+
+    <ion-row>
+      <ion-col size="12" class="text-center">
+        <img src="/assets/images/mock/user.png" alt="" class="user-image">
+        <p class="mt-2 light-color">{{user?.name}}</p>
+      </ion-col>
+    </ion-row>
+  </div>
+  <!-- Default Segment -->
+  <ion-segment (ionChange)="segmentChanged($event)" value="profile" mode="md">
+    <ion-segment-button value="profile">
+      <ion-label>Profile</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="review">
+      <ion-label>Reviews</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <div [ngSwitch]="segmentValue">
+    <ion-list *ngSwitchCase="'profile'">
+
+      <div class="user-info">
+        <label>Location</label>
+        <p>{{ user?.location?.name }}</p>
+      </div>
+
+      <div class="user-info">
+        <label>Price</label>
+        <p>{{ user?.price }} per {{ user?.price_type }}</p>
+      </div>
+
+      <div class="user-info">
+        <label>Phone</label>
+        <p>{{ user?.phone }}</p>
+      </div>
+
+      <div class="user-info" *ngIf="user?.facebook">
+        <label>Facebook</label>
+        <a [href]="'facebook.com/'+user?.facebook">{{ user?.facebook }}</a>
+      </div>
+
+      <div class="user-info" *ngIf="user?.instagram">
+        <label>Instagram</label>
+        <a [href]="'instagram.com/'+user?.instagram">{{ user?.instagram }}</a>
+      </div>
+
+      <div class="user-info" *ngIf="user?.snapchat">
+        <label>Snapchat</label>
+        <a [href]="'snapchat.com/'+user?.snapchat">{{ user?.snapchat }}</a>
+      </div>
+
+
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'review'">
+      <div class="review-item" *ngFor="let review of user?.review">
+        <div class="d-flex justify-content-center">
+          <app-rating-stars [stars]="review?.stars " [disabled]="true"></app-rating-stars>
+        </div>
+        <p class="text-center">{{ review.comment }}</p>
+      </div>
+      <ion-item-divider>
+        <ion-label>Leave a review</ion-label>
+      </ion-item-divider>
+      <ion-row class="light-bg">
+        <ion-col size="12" class="d-flex justify-content-center">
+          <ngx-star-rating [(ngModel)]="rating" class="user-rate"></ngx-star-rating>
+        </ion-col>
+      </ion-row>
+      <ion-item lines="none">
+        <ion-textarea [(ngModel)]="comment" placeholder="Write a comment"></ion-textarea>
+      </ion-item>
+      <ion-button (click)="postReview()" expand="block" class="m-2">
+        Post
+      </ion-button>
+    </ion-list>
+
+  </div>
+</ion-content>
