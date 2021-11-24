@@ -1,0 +1,15 @@
+::ng-deep ngx-star-rating {
+  float: left !important;
+  label {
+    font-size: 14px !important;
+    padding: 2px !important;
+    color: white !important;
+  }
+}
+ion-card {
+  --background: white;
+  // color: white;
+  --box-shadow: none;
+  box-shadow: none !important;
+  --border-width: 0px;
+}
