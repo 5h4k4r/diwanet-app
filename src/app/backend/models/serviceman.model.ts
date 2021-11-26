@@ -13,7 +13,7 @@ export interface ServiceMan extends User {
   service_cat_id?: number;
   image?: string;
   lat?: number;
-  long?: string;
+  long?: number;
   vip?: number;
   facebook?: string;
   instagram?: string;
