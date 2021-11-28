@@ -1,0 +1,30 @@
+.valign-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Vertical */
+  height: calc(100vh - 56px);
+}
+.small {
+  font-size: smaller;
+}
+
+.pass-btn {
+  --background: transparent;
+  --box-shadow: none !important;
+  position: absolute;
+  right: -14px;
+  bottom: 9px;
+  ion-icon {
+    color: black !important;
+  }
+}
+.pass-btn:hover {
+  --background: transparent !important;
+  --box-shadow: none !important;
+}
+.image {
+  height: 200px;
+  width: 200px;
+  text-align: center;
+}
