@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-side-nav',
@@ -7,11 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SideNavPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private menuController: MenuController,
+  ) { }
 
   ngOnInit() {
   }
 
+  async navigate(url: string): Promise<void> {
+    await this.router.navigateByUrl(url);
+    this.menuController.close('main-menu');
+  }
   aboutModal(): void {
 
   }
