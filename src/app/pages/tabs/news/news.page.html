@@ -12,9 +12,31 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="full-page-container" [class]="isAndroid ? 'android-height' : 'ios-height'">
+    <section [class]="isAndroid ? 'android-height' : 'ios-height'" [style]="'background-image:url('
+      +item.last_image.name+')'" *ngFor="let item of newsList">
+      <div class="overlay">
+        <div class="d-flex align-items-center">
+          <img [src]="item.service_man.image" class="profile-image me-1">
+
+
+          <div class="ms-1 d-flex align-items-center"><span style="font-size: .9rem;">{{ item.service_man.name
+              }}</span></div>
+        </div>
+        <div class="mt-2">
+          <strong>{{ item.title }}</strong>
+        </div>
+        <div class="mt-2 news-detail">
+          <small>{{ item.detail }}</small>
+        </div>
+        <div class="mt-2">
+          <ion-button (click)="openNews(item.id)" expand="block" color="secondary" fill="outline" size="medium">
+            See more
+          </ion-button>
+        </div>
+      </div>
+    </section>
+
+
+  </div>
 </ion-content>

@@ -1,0 +1,16 @@
+section {
+  padding: 20px;
+}
+
+.profile-image {
+  width: 30px;
+  border-radius: 50%;
+}
+ion-slides {
+  background-color: #e6e6e6;
+  border-radius: var(--ion-border-radius);
+  img {
+    padding: 20px 0px;
+    height: 150px;
+  }
+}

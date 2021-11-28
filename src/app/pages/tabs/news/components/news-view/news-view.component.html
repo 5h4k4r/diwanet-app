@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()" fill="clear">
+        <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+<ion-content [fullscreen]="true">
+  <section *ngIf="news;else loadingProgress">
+    <div class="d-flex align-items-center">
+      <img [src]="news.service_man.image" class="profile-image me-1">
+
+
+      <div class="ms-1 d-flex align-items-center">
+        <span style="font-size: .9rem;" class="medium-color">{{ news.service_man.name }}</span>
+      </div>
+    </div>
+    <div class="mt-2">
+      <strong>{{ news.title }}</strong>
+    </div>
+    <div class="mt-2 news-detail">
+      <small>{{ news.detail }}</small>
+    </div>
+    <ion-slides [options]="sliderOptions">
+      <ion-slide *ngFor="let image of news.images">
+        <img [src]="image.name" (click)="openImage(image.name)">
+      </ion-slide>
+    </ion-slides>
+  </section>
+
+  <ng-template #loadingProgress>
+    <ion-progress-bar type="indeterminate" color="primary"></ion-progress-bar>
+
+  </ng-template>
+</ion-content>
