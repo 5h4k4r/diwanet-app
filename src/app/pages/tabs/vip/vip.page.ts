@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { Component, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { merge, Subject } from 'rxjs';
@@ -58,8 +59,9 @@ export class VipPage implements OnInit, OnDestroy {
     this._loading = false;
 
     this.loadDataAsync();
-    merge(this._getDataEvent).pipe(takeUntil(this._destroy$)).subscribe(_ => {
-      this.loadDataAsync();
+    merge(this._getDataEvent).pipe(takeUntil(this._destroy$)).subscribe(category => {
+
+      this.loadDataAsync(category);
     });
   }
 
@@ -70,11 +72,11 @@ export class VipPage implements OnInit, OnDestroy {
     this.searchText = value;
     this._getDataEvent.emit();
   }
-  async loadDataAsync(): Promise<void> {
+  async loadDataAsync(service_cat_id?: number): Promise<void> {
     this._loading = true;
 
     try {
-      this._users = await this.usersService.listVIPUsers();
+      this._users = await this.usersService.listServiceMen({ service_cat_id: service_cat_id ? service_cat_id : null, vip: true });
 
     } catch (error) {
 
@@ -85,7 +87,7 @@ export class VipPage implements OnInit, OnDestroy {
   }
 
   onSelectionChange($event: any): void {
-    this._getDataEvent.emit();
+    this._getDataEvent.emit($event.target?.value);
   }
 
 

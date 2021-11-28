@@ -17,7 +17,7 @@
       (ionChange)="onSelectionChange($event)">
 
       <ion-select-option [value]="null">None</ion-select-option>
-      <ion-select-option *ngFor="let cat of categories" [value]="cat.name">{{cat.name | titlecase}}</ion-select-option>
+      <ion-select-option *ngFor="let cat of categories" [value]="cat.id">{{cat.name | titlecase}}</ion-select-option>
     </ion-select>
   </ion-item>
 
