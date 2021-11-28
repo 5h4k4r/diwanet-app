@@ -29,17 +29,12 @@ export class UsersService {
   //#region Functions
 
 
-  listVIPUsers(params?: {
-    service_cat_id?: number;
-  }): Promise<ServiceMan[]> {
-    return this.http.get<ServiceMan[]>(`${this.baseUrl}/vip`).toPromise();
-  }
-
   listServiceMen(params?: {
     service_cat_id?: number;
+    vip?: boolean;
   }): Promise<ServiceMan[]> {
-
-    return this.http.get<ServiceMan[]>(`${this.baseUrl}/servicemen`, { params: { service_cat_id: params.service_cat_id } }).toPromise();
+    this.filterFields(params);
+    return this.http.get<ServiceMan[]>(`${this.baseUrl}/servicemen`, { params: this.filterFields(params) }).toPromise();
   }
 
   getUserById(params?: { id: string }): Promise<ServiceMan> {
@@ -52,6 +47,16 @@ export class UsersService {
     stars: number;
   }): Promise<any> {
     return this.http.post(`https://diwanet.com/api/review`, params).toPromise();
+  }
+
+  private filterFields(params: any): any {
+    for (const key in params) {
+      if (Object.prototype.hasOwnProperty.call(params, key)) {
+        if (params[key] === undefined || params[key] === null)
+          delete params[key];
+      }
+    }
+    return params;
   }
   //#endregion
 }

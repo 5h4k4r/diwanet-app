@@ -11,9 +11,9 @@ export class AuthService {
   ) { }
 
 
-  // async login(params?: {
-  //   handle: string; password: string;
-  // }): Promise<any> {
-  //   return await this.http.get().toPromise();
-  // }
+  async login(params: {
+    handle: string; password: string;
+  }): Promise<any> {
+    return await this.http.get(`${this.baseUrl}/login`, { params }).toPromise();
+  }
 }
