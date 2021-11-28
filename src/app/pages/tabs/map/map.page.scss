@@ -1,3 +1,12 @@
 .image-title {
   width: 80px;
 }
+#dashboardMap {
+  height: calc(100vh - 56px);
+  width: 100%;
+  border-radius: nb-theme(border-radius);
+}
+
+::ng-deep .map-container {
+  height: 100% !important;
+}
