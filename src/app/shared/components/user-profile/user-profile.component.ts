@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Component, Input, OnInit } from '@angular/core';
 import { LoadingController, ModalController } from '@ionic/angular';
+import { Review } from 'src/app/backend/models/review.model';
 import { ServiceMan } from 'src/app/backend/models/serviceman.model';
 import { UsersService } from 'src/app/backend/services/users.service';
 
@@ -18,11 +19,13 @@ export class UserProfileComponent implements OnInit {
   rating = 1;
   comment = '';
 
+  private _reviews: Review[] = [];
 
   //#endregion
 
   //#region Properties
   get user(): ServiceMan { return this._user; }
+  get reviews(): Review[] { return this._reviews; }
   //#endregion
 
   //#region Constructor
@@ -48,7 +51,7 @@ export class UserProfileComponent implements OnInit {
     this.presentLoading();
     try {
       this._user = await this.usersService.getUserById({ id: this.userId });
-      console.log(this.user);
+      this._reviews = this.user.review;
     } catch (error) {
 
     }
@@ -67,17 +70,12 @@ export class UserProfileComponent implements OnInit {
       this.rating = 1;
 
     try {
-      await this.usersService.reviewUser({
+      const reviewResponse = await this.usersService.reviewUser({
         id_service_man: this.user.id,
         stars: this.rating,
         comment: this.comment
       });
-
-      this.user.review.push({
-        comment: this.comment,
-        stars: this.rating,
-        id_service_man: this.user.id
-      });
+      this._reviews.push(reviewResponse);
     } catch (error) {
 
     }
