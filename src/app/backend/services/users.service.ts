@@ -38,7 +38,9 @@ export class UsersService {
   }
 
   getUserById(params?: { id: string }): Promise<ServiceMan> {
-    return this.http.get<ServiceMan>(`${this.baseUrl}/servicemen/${params.id}`).pipe(map(users => users[0])).toPromise();
+    return this.http.get<ServiceMan>(`${this.baseUrl}/servicemen`,
+      { params: this.filterFields(params) }
+    ).pipe(map(users => users[0])).toPromise();
   }
 
   reviewUser(params?: {
