@@ -54,7 +54,7 @@ export class VipPage implements OnInit, OnDestroy {
   async ngOnInit(): Promise<void> {
     this._loading = true;
 
-    this._categories = await this.categoriesService.listCategories();
+    this._categories = await this.categoriesService.getCategories();
 
     this._loading = false;
 
