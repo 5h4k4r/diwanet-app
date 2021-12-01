@@ -1,15 +1,15 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button menu="main-menu"></ion-menu-button>
     </ion-buttons>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 <ion-content [fullscreen]="true">
   <form class="valign-center" (ngSubmit)="loginAsync()" [formGroup]="ngForm">
     <ion-grid>
       <ion-row color="primary" class="ion-justify-content-center">
-        <ion-col size-md="6" size-lg="5" size-xs="12" class="ion-align-self-center">
+        <ion-col size-md="6" size-lg="5" size-xs="12" class="ion-align-self-center d-none d-md-block">
           <div class="d-flex justify-content-center">
             <ion-img src="/assets/images/brand/diwanet_logo_blue.png" class="image">
             </ion-img>
@@ -20,8 +20,16 @@
             <ion-grid fixed>
               <ion-row>
                 <ion-col size="12">
-                  <ion-item>
-                    <ion-label position="floating">Username</ion-label>
+                  <div class="header">
+                    <h1 class="my-1">Welcome</h1>
+                    <p class="color-medium">Start using Diwanet for a better experience.</p>
+                  </div>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12">
+                  <ion-item lines="none">
+                    <ion-label position="stacked">Username</ion-label>
                     <ion-input inputmode="text" enterkeyhint="next" type="text" formControlName="handle" required>
                     </ion-input>
                   </ion-item>
@@ -29,14 +37,14 @@
               </ion-row>
               <ion-row>
                 <ion-col size="12">
-                  <ion-item>
-                    <ion-label position="floating">Password</ion-label>
+                  <ion-item lines="none">
+                    <ion-label position="stacked">Password</ion-label>
                     <ion-input inputmode="text" [type]="passwordType" formControlName="password" required
-                      (keyup.enter)="ngForm.valid ? loginAsync() : undefined" enterkeyhint="enter">
-                      <ion-button class="pass-btn no-ripple" (click)="hideShowPassword()">
-                        <ion-icon slot="icon-only" [name]="passwordIcon"></ion-icon>
-                      </ion-button>
+                      style="width: 90%;" (keyup.enter)="ngForm.valid ? loginAsync() : undefined" enterkeyhint="enter">
                     </ion-input>
+                    <ion-button class="pass-btn no-ripple" fill="clear" (click)="hideShowPassword()">
+                      <ion-icon slot="icon-only" [name]="passwordIcon"></ion-icon>
+                    </ion-button>
                   </ion-item>
                 </ion-col>
               </ion-row>

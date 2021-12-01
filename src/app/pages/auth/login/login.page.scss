@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: center;
   /* Vertical */
-  height: calc(100vh - 56px);
+  height: calc((var(--vh, 1vh) * 100) - 56px);
 }
 .small {
   font-size: smaller;
@@ -13,8 +13,8 @@
   --background: transparent;
   --box-shadow: none !important;
   position: absolute;
-  right: -14px;
-  bottom: 9px;
+  right: 0px;
+  bottom: 5px;
   ion-icon {
     color: black !important;
   }

@@ -46,15 +46,17 @@ export class LoginPage implements OnInit {
   //#region Funtions
   async ngOnInit(): Promise<void> {
     this.ngForm = new FormGroup({
-      handle: new FormControl('', Validators.required),
-      password: new FormControl('', Validators.required)
+      handle: new FormControl('07702254426', Validators.required),
+      password: new FormControl('123456', Validators.required)
     });
     // get return url from route parameters or default to '/dashboard-tabs'
     this._returnUrl = this.route.snapshot.queryParams.returnUrl || '/tabs/vip';
     await this.tokenStore.isReady$;
 
-    if (this.tokenStore.accessToken)
-      this.resolveRoute();
+    if (this.tokenStore.accessToken) {
+
+      await this.resolveRoute();
+    }
   }
 
   async loginAsync() {
@@ -73,7 +75,7 @@ export class LoginPage implements OnInit {
         handle: loginModel.handle,
         password: loginModel.password
       });
-      this.resolveRoute();
+      await this.resolveRoute();
     } catch (error) {
       this._errorMassage = 'Invalid Handle or Password';
     }
@@ -85,6 +87,7 @@ export class LoginPage implements OnInit {
   }
 
   hideShowPassword() {
+
     if (this.passwordType === 'text') {
       this.passwordType = 'password';
     } else {
