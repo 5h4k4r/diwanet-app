@@ -30,7 +30,7 @@ export class MapPage implements OnInit, OnDestroy {
 
 
   center: google.maps.LatLngLiteral = { lat: 24, lng: 12 };
-  zoom = 4;
+  zoom = 12;
   markerOptions: google.maps.MarkerOptions = { draggable: false, };
   markerPositions: google.maps.LatLngLiteral[] = [];
   selectedMarkerInfoWindowContent: string | undefined;
@@ -39,6 +39,7 @@ export class MapPage implements OnInit, OnDestroy {
   private _userList!: any[];
   private destroy$ = new Subject();
   private _loading = false;
+  private _hasError = false;
   private _users: ServiceMan[];
   //#endregion
 
@@ -48,6 +49,7 @@ export class MapPage implements OnInit, OnDestroy {
     return this.users?.map(user => { if (user.lat && user.long) return { lat: user.lat, long: user.long }; else return; });
   }
   get loading(): boolean { return this._loading; }
+  get hasError(): boolean { return this._hasError; }
   get users(): ServiceMan[] { return this._users; }
   //#endregion
 
@@ -63,10 +65,11 @@ export class MapPage implements OnInit, OnDestroy {
 
   //#region Functions
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-
+    await this.getAllUsers();
+    this.initMap();
   }
 
   async getAllUsers(): Promise<void> {
@@ -75,10 +78,10 @@ export class MapPage implements OnInit, OnDestroy {
 
       this._loading = true;
 
-      this._users = await (await this.usersService.listServiceMen()).filter(i => (i.lat && i.long));
+      this._users = await (await this.usersService.listServiceMen()).filter(i => i.lat && i.long);
       console.log(this.users);
     } catch (error) {
-
+      this._hasError = true;
 
     }
 
@@ -104,11 +107,12 @@ export class MapPage implements OnInit, OnDestroy {
   private initMap() {
     if (!this.addresses) return;
     for (const deliveryAddress of this.addresses) {
+      const latLng: { lat: number; lng: number } = { lat: deliveryAddress.lat, lng: deliveryAddress.long };
 
       if (!deliveryAddress) return;
 
-      this.markerPositions.push({ lat: deliveryAddress.lat, lng: deliveryAddress.long });
-
+      this.markerPositions.push(latLng);
+      this.center = latLng;
     }
 
 

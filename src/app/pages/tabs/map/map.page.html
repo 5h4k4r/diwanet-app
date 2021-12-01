@@ -12,8 +12,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <google-map id="dashboardMap" width="100%" [center]="center" [zoom]="zoom"
-    [options]="mapStyles ? {styles: mapStyles} : {}">
+  <google-map id="dashboardMap" width="100%" [center]="center" [zoom]="zoom" *ngIf="!loading; else progressSpinner">
     <map-marker #marker="mapMarker" *ngFor="let markerPosition of markerPositions; let index = index"
       [position]="markerPosition" [options]="markerOptions" (mapClick)="openInfoWindow(marker, infoWindow, index)">
 
@@ -37,3 +36,6 @@
     </map-marker>
   </google-map>
 </ion-content>
+<ng-template #progressSpinner>
+  <ion-progress-bar color="primary" type="indeterminate"></ion-progress-bar>
+</ng-template>
