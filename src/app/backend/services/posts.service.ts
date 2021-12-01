@@ -6,14 +6,14 @@ import { Post } from '../models/post.model';
   providedIn: 'root'
 })
 export class PostsService {
-  baseUrl = 'https://diwanet.com/api/post';
+  baseUrl = 'https://diwanet.com/api/posts';
   constructor(
     private http: HttpClient
   ) { }
 
 
   getCustomerPosts(): Promise<Post[]> {
-    return this.http.post<Post[]>(`${this.baseUrl}/customer`, {}).toPromise();
+    return this.http.get<Post[]>(`${this.baseUrl}`, {}).toPromise();
   }
 
 }

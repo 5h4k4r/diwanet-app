@@ -10,7 +10,7 @@ export class TokenStoreService {
   //#region Fields
   private _readySubject$ = new Subject();
   private _isReady$ = this._readySubject$.toPromise();
-  private _auth: any = {};
+  private _auth: string | undefined;
   //#endregion
 
   //#region Properties
@@ -19,12 +19,9 @@ export class TokenStoreService {
   }
 
   get accessToken(): string | null | undefined {
-    return this._auth.accessToken;
+    return this._auth;
   }
 
-  get refreshToken(): string | null | undefined {
-    return this._auth.refreshToken;
-  }
   //#endregion
 
   //#region Constructor
@@ -38,7 +35,7 @@ export class TokenStoreService {
 
     });
 
-    this._auth = storage.getObject('token', {});
+    this._auth = storage.getObject('token', '');
     try {
       const storedToken = storage.getObject('token');
       if (storedToken) {
@@ -59,7 +56,7 @@ export class TokenStoreService {
   }
 
   clearAuthToken(): void {
-    this._auth = {};
+    this._auth = undefined;
     this.storage.removeKey('token');
   }
 

@@ -13,7 +13,7 @@ export class CategoriesService {
   }
 
 
-  listCategories(): Promise<Category[]> {
+  getCategories(): Promise<Category[]> {
     return this.http.get<Category[]>(this.baseUrl).toPromise();
   }
 }
