@@ -2,10 +2,10 @@
   width: 80px;
 }
 .android-height {
-  height: calc(100vh - 112px) !important;
+  height: calc((var(--vh, 1vh) * 100) - 112px) !important;
 }
 .ios-height {
-  height: calc(100vh - 94px) !important;
+  height: calc((var(--vh, 1vh) * 100) - 94px) !important;
 }
 .full-page-container {
   overflow-y: scroll;
@@ -69,5 +69,5 @@ section {
 }
 .news-detail {
   overflow-y: hidden;
-  height: calc(100vh - 300px);
+  height: calc((var(--vh, 1vh) * 100) - 300px);
 }

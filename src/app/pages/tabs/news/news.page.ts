@@ -13,7 +13,8 @@ export class NewsPage implements OnInit {
   //#region Fields
 
   private _newsList: News[] | undefined;
-
+  private _loading = false;
+  private _hasError = false;
   //#endregion
 
 
@@ -21,6 +22,8 @@ export class NewsPage implements OnInit {
 
   get newsList(): News[] { return this._newsList; }
   get isAndroid(): boolean { return this.platform.is('android'); }
+  get loading(): boolean { return this._loading; }
+  get hasError(): boolean { return this._hasError; }
   //#endregion
 
 
@@ -44,11 +47,21 @@ export class NewsPage implements OnInit {
   }
 
   async listNews(): Promise<void> {
+
+    this._hasError = false;
+    this._loading = true;
+
     try {
+
       this._newsList = await this.newsService.getNews();
+
     } catch (error) {
 
+      this._hasError = true;
+
     }
+    this._loading = false;
+
   }
 
   async openNews(id: number) {

@@ -12,7 +12,8 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div class="full-page-container" [class]="isAndroid ? 'android-height' : 'ios-height'">
+  <div class="full-page-container" [class]="isAndroid ? 'android-height' : 'ios-height'"
+    *ngIf="!loading; else progressSpinner">
     <section [class]="isAndroid ? 'android-height' : 'ios-height'" [style]="'background-image:url('
       +item.last_image.name+')'" *ngFor="let item of newsList">
       <div class="overlay">
@@ -30,7 +31,7 @@
           <small>{{ item.detail }}</small>
         </div>
         <div class="mt-2">
-          <ion-button (click)="openNews(item.id)" expand="block" color="secondary" fill="outline" size="medium">
+          <ion-button (click)="openNews(item.id)" expand="block" color="light" fill="outline" size="medium">
             See more
           </ion-button>
         </div>
@@ -40,3 +41,6 @@
 
   </div>
 </ion-content>
+<ng-template #progressSpinner>
+  <ion-progress-bar color="primary" type="indeterminate"></ion-progress-bar>
+</ng-template>

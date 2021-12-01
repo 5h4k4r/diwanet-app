@@ -8,13 +8,15 @@ import { NewsPageRoutingModule } from './news-routing.module';
 
 import { NewsPage } from './news.page';
 import { NewsViewComponent } from './components/news-view/news-view.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    NewsPageRoutingModule
+    NewsPageRoutingModule,
+    SharedModule,
   ],
   declarations: [NewsPage, NewsViewComponent]
 })
