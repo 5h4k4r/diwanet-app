@@ -1,0 +1,33 @@
+.valign-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Vertical */
+  @media only screen and (min-width: 768px) and (min-height: 875px) {
+    height: calc((var(--vh, 1vh) * 100));
+  }
+  overflow-y: auto;
+}
+.small {
+  font-size: smaller;
+}
+
+.pass-btn {
+  --background: transparent;
+  --box-shadow: none !important;
+  position: absolute;
+  right: 0px;
+  bottom: 5px;
+  ion-icon {
+    color: black !important;
+  }
+}
+.pass-btn:hover {
+  --background: transparent !important;
+  --box-shadow: none !important;
+}
+.image {
+  height: 200px;
+  width: 200px;
+  text-align: center;
+}
