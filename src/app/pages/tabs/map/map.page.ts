@@ -78,8 +78,9 @@ export class MapPage implements OnInit, OnDestroy {
 
       this._loading = true;
 
-      this._users = await (await this.usersService.listServiceMen()).filter(i => i.lat && i.long);
-      console.log(this.users);
+      this._users = await this.usersService.listServiceMen();
+      this._users = this.users.filter(i => i.lat && i.long);
+
     } catch (error) {
       this._hasError = true;
 
