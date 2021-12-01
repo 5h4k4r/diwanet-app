@@ -8,6 +8,11 @@
         <ion-icon name="menu-outline"></ion-icon>
       </ion-menu-button>
     </ion-buttons>
+    <ion-buttons slot="end" *ngIf="accessToken?.length">
+      <ion-button (click)="addNews()" fill="clear">
+        <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 

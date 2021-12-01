@@ -9,6 +9,7 @@ import { NewsPageRoutingModule } from './news-routing.module';
 import { NewsPage } from './news.page';
 import { NewsViewComponent } from './components/news-view/news-view.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { NewsAddComponent } from './components/news-add/news-add.component';
 
 @NgModule({
   imports: [
@@ -18,6 +19,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
     NewsPageRoutingModule,
     SharedModule,
   ],
-  declarations: [NewsPage, NewsViewComponent]
+  declarations: [NewsPage, NewsViewComponent, NewsAddComponent]
 })
 export class NewsPageModule { }

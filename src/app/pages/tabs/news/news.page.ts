@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController, Platform } from '@ionic/angular';
 import { News } from 'src/app/backend/models/news.model';
 import { NewsService } from 'src/app/backend/services/news.service';
+import { TokenStoreService } from 'src/app/backend/services/token-store.service';
 import { NewsViewComponent } from './components/news-view/news-view.component';
 
 @Component({
@@ -24,6 +25,8 @@ export class NewsPage implements OnInit {
   get isAndroid(): boolean { return this.platform.is('android'); }
   get loading(): boolean { return this._loading; }
   get hasError(): boolean { return this._hasError; }
+
+  get accessToken(): string | undefined { return this.tokenStore.accessToken; }
   //#endregion
 
 
@@ -33,7 +36,8 @@ export class NewsPage implements OnInit {
   constructor(
     private newsService: NewsService,
     private platform: Platform,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private tokenStore: TokenStoreService,
   ) { }
 
 
@@ -61,6 +65,10 @@ export class NewsPage implements OnInit {
 
     }
     this._loading = false;
+
+  }
+
+  addNews(): void {
 
   }
 
