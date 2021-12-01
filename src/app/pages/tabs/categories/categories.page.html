@@ -12,9 +12,48 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+  <ng-container *ngIf="!loading; else loadingProgress">
+
+    <div class="pins" *ngIf="!selectedCategory;else selectedCategoryServiceMen">
+      <ion-card class="pin" *ngFor="let category of categories" (click)="selectCategory(category)">
+        <div class="card-overlay">
+          {{ category?.name }}
+        </div>
+        <img [src]="category.image">
+      </ion-card>
+    </div>
+
+
+
+  </ng-container>
+
+  <ng-template #loadingProgress>
+    <ion-progress-bar type="indeterminate" color="primary"></ion-progress-bar>
+
+  </ng-template>
+
+  <ng-template #selectedCategoryServiceMen>
     <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
+      <ion-buttons slot="start">
+        <ion-button (click)="clearCategory()" fill="clear">
+          <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title>{{selectedCategory.name}} Servicemen</ion-title>
     </ion-toolbar>
-  </ion-header>
+    <ng-container *ngIf="users.length;else noResultFound">
+
+      <app-user-card-view *ngFor="let user of users" [user]="user"></app-user-card-view>
+    </ng-container>
+
+
+  </ng-template>
+
+  <ng-template #noResultFound>
+
+    <div class="medium-color mt-5 d-flex align-items-center justify-content-center">
+      No results found for &nbsp;<strong>{{ selectedCategory.name }}</strong>
+    </div>
+
+  </ng-template>
 </ion-content>
