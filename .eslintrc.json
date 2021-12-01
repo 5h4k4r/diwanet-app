@@ -47,8 +47,9 @@
           }
         ],
         "curly": "off",
+        "no-non-null-assertion": "off",
         "no-underscore-dangle": "off",
-        "naming-convention": "off"
+        "semi": "error"
       }
     },
     {
