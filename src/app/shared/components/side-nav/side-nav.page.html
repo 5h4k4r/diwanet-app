@@ -10,10 +10,10 @@
         </ion-col> -->
       </ion-row>
     </ion-grid>
-    <ion-item button detail="false" lines="none" (click)="navigate('/auth/login')">
+    <ion-item button detail="false" lines="none" (click)="navigate('/auth/login')" *ngIf="!accessToken?.length">
       <ion-label>Login</ion-label>
     </ion-item>
-    <ion-item button detail="false" lines="none">
+    <ion-item button detail="false" lines="none" (click)="navigate('/auth/register')">
       <ion-label>Register</ion-label>
     </ion-item>
     <ion-item button detail="false" lines="none">
@@ -52,7 +52,13 @@
     <ion-item button detail="false" lines="none" (click)="contactModal()">
       <ion-label>Contact</ion-label>
     </ion-item>
-    <ion-row class="ion-justify-content-start ion-padding links">
+
+    <ion-item button detail="false" lines="none" color="danger" (click)="logout()" *ngIf="accessToken?.length;">
+      <ion-label>Logout</ion-label>
+    </ion-item>
+
+
+    <ion-row class=" ion-justify-content-start ion-padding links">
       <!-- <ion-icon name="logo-instagram" class="instagram margin-10" (click)="openInstagram()"></ion-icon>
       <ion-icon name="logo-facebook" class="facebook margin-10" (click)="openFacebook()"></ion-icon>
       <img src="/assets/img/node_base_white.png" alt="" height="44.4px" width="100px" class="margin-10"> -->
