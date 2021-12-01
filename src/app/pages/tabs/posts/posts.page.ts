@@ -39,7 +39,6 @@ export class PostsPage implements OnInit {
 
   async getCustomerPosts(): Promise<void> {
     const posts = await this.postsService.getCustomerPosts();
-    console.log(posts);
   }
   //#endregion
 

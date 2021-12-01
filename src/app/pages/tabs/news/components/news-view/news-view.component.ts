@@ -65,7 +65,6 @@ export class NewsViewComponent implements OnInit {
     try {
 
       this._news = await this.newsService.getNewsById({ id: this.id });
-      console.log(this.news);
     } catch (error) {
 
       this._hasError = false;

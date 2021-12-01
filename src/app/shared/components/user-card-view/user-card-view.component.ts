@@ -15,7 +15,6 @@ export class UserCardViewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.user);
   }
 
   async openProfile() {
