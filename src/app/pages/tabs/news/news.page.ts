@@ -3,6 +3,7 @@ import { ModalController, Platform } from '@ionic/angular';
 import { News } from 'src/app/backend/models/news.model';
 import { NewsService } from 'src/app/backend/services/news.service';
 import { TokenStoreService } from 'src/app/backend/services/token-store.service';
+import { NewsAddComponent } from './components/news-add/news-add.component';
 import { NewsViewComponent } from './components/news-view/news-view.component';
 
 @Component({
@@ -68,11 +69,16 @@ export class NewsPage implements OnInit {
 
   }
 
-  addNews(): void {
+  async addNews(): Promise<void> {
+    const modal = await this.modalController.create({
+      component: NewsAddComponent
+    });
 
+    await modal.present();
+    const response = await modal.onDidDismiss();
+    console.log(response);
   }
-
-  async openNews(id: number) {
+  async openNews(id: number): Promise<void> {
     const modal = await this.modalController.create({
       component: NewsViewComponent,
       componentProps: { id }
@@ -81,6 +87,8 @@ export class NewsPage implements OnInit {
     await modal.present();
 
   }
+
   //#endregion
+
 
 }

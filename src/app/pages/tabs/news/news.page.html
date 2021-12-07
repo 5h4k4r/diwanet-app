@@ -20,14 +20,15 @@
   <div class="full-page-container" [class]="isAndroid ? 'android-height' : 'ios-height'"
     *ngIf="!loading; else progressSpinner">
     <section [class]="isAndroid ? 'android-height' : 'ios-height'" [style]="'background-image:url('
-      +item.last_image.name+')'" *ngFor="let item of newsList">
+      +item?.last_image?.name+')'" *ngFor="let item of newsList">
       <div class="overlay">
         <div class="d-flex align-items-center">
-          <img [src]="item.service_man.image" class="profile-image me-1">
+          <img *ngIf="item?.service_man?.image" [src]="item.service_man.image" class="profile-image me-1">
 
 
-          <div class="ms-1 d-flex align-items-center"><span style="font-size: .9rem;">{{ item.service_man.name
-              }}</span></div>
+          <div *ngIf="item?.service_man?.name" class="ms-1 d-flex align-items-center">
+            <span style="font-size: .9rem;">{{ item.service_man.name}}</span>
+          </div>
         </div>
         <div class="mt-2">
           <strong>{{ item.title }}</strong>
