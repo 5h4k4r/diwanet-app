@@ -11,22 +11,23 @@
 <ion-content [fullscreen]="true">
   <section *ngIf="news;else loadingProgress">
     <div class="d-flex align-items-center">
-      <img [src]="news.service_man.image" class="profile-image me-1">
+      <img *ngIf="news?.service_man?.image" [src]="news?.service_man?.image" class="profile-image me-1">
 
 
       <div class="ms-1 d-flex align-items-center">
-        <span style="font-size: .9rem;" class="medium-color">{{ news.service_man.name }}</span>
+        <span style="font-size: .9rem;" class="medium-color" *ngIf="news?.service_man?.name">{{ news?.service_man?.name
+          }}</span>
       </div>
     </div>
     <div class="mt-2">
-      <strong>{{ news.title }}</strong>
+      <strong>{{ news?.title }}</strong>
     </div>
     <div class="mt-2 news-detail">
-      <small>{{ news.detail }}</small>
+      <small>{{ news?.detail }}</small>
     </div>
     <ion-slides [options]="sliderOptions">
-      <ion-slide *ngFor="let image of news.images">
-        <img [src]="image.name" (click)="openImage(image.name)">
+      <ion-slide *ngFor="let image of news?.images">
+        <img *ngIf="image?.name" [src]="image?.name" (click)="openImage(image?.name)">
       </ion-slide>
     </ion-slides>
   </section>
