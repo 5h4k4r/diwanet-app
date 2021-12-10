@@ -19,7 +19,7 @@
   right: 0px;
   bottom: 5px;
   ion-icon {
-    color: black !important;
+    color: var(--ion-color-dark) !important;
   }
 }
 .pass-btn:hover {
@@ -30,4 +30,8 @@
   height: 200px;
   width: 200px;
   text-align: center;
+}
+
+.no-ripple {
+  --ripple-color: transparent;
 }

@@ -4,6 +4,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Category } from 'src/app/backend/models/category.model';
 import { Location } from 'src/app/backend/models/location.model';
+import { RegisterResponse } from 'src/app/backend/models/registerResponse.model';
 import { AuthService } from 'src/app/backend/services/auth.service';
 import { CategoriesService } from 'src/app/backend/services/categories.service';
 import { LocationsService } from 'src/app/backend/services/locations.service';
@@ -17,17 +18,21 @@ import { TokenStoreService } from 'src/app/backend/services/token-store.service'
 export class RegisterPage implements OnInit {
   //#region Fields
 
+  base64textString: string | undefined;
+  imageUrl: string | ArrayBuffer | undefined;
+  imageInput: any;
+
   ngForm = this.fb.group({
-    name: ['', Validators.required],
-    password: ['', Validators.required],
-    phone: ['', Validators.required],
-    category_id: ['', Validators.required],
-    location_id: ['', Validators.required],
-    price: ['', Validators.required],
-    price_type: ['', Validators.required],
-    email: ['', Validators.email],
+    name: ['name', Validators.required],
+    password: ['1q2w3e', Validators.required],
+    phone: ['123123', Validators.required],
+    category_id: [1, Validators.required],
+    location_id: [2, Validators.required],
+    price: [123, Validators.required],
+    price_type: ['hour', Validators.required],
+    email: ['e@mail.com', Validators.email],
     image: [null],
-    about: [''],
+    about: ['about'],
     facebook: [''],
     instagram: [''],
     snapchat: [''],
@@ -40,7 +45,6 @@ export class RegisterPage implements OnInit {
   private _loading = false;
   private _errorMassage = '';
   private _submitted = false;
-  private _returnUrl: string;
   private _categories: Category[] | undefined;
   private _locations: Location[] | undefined;
   //#endregion
@@ -66,22 +70,7 @@ export class RegisterPage implements OnInit {
 
   }
   //#endregion
-  //  {
-  //   name: string;
-  //   phone: string;
-  //   category_id: number;
-  //   location_id: number;
-  //   price: number;
-  //   price_type: 'day' | 'hour';
-  //   password: string;
-  //   email?: string;
-  //   image?: any;
-  //   about?: string;
-  //   facebook?: string;
-  //   instagram?: string;
-  //   snapchat: string;
 
-  // }
   //#region Funtions
   async ngOnInit(): Promise<void> {
     await this.getLocations();
@@ -90,6 +79,7 @@ export class RegisterPage implements OnInit {
   }
 
   async register() {
+    this._errorMassage = '';
     if (this.ngForm.invalid || this.loading) {
       return;
     }
@@ -100,7 +90,11 @@ export class RegisterPage implements OnInit {
 
     const formData = this.ngForm.value;
     try {
-      await this.authService.register(formData);
+      const response: RegisterResponse = await this.authService.register({
+        ...formData,
+        image: this.base64textString
+      });
+      this.tokenStore.applyAuthToken(response.access_token);
       await this.resolveRoute();
     } catch (error) {
       this._errorMassage = 'Something is Wrong';
@@ -109,7 +103,31 @@ export class RegisterPage implements OnInit {
 
     this._submitted = false;
     this._loading = false;
-    this.ngForm.reset();
+    // this.ngForm.reset();
+  }
+
+  processFile(imageInput: any): void {
+
+    this.base64textString = undefined;
+    const files: File[] = imageInput.files;
+
+    for (const file of files) {
+
+      const reader = new FileReader();
+
+      reader.onload = this.handleReaderLoaded.bind(this);
+      reader.readAsBinaryString(file);
+      const urlReader = new FileReader();
+
+      urlReader.readAsDataURL(file);
+      urlReader.onload = (event) => this.imageUrl = event.target.result;
+
+      // this.imageInput = null;
+    }
+
+    // Create form data
+
+    // Store form name as "file" with file data
   }
 
   hideShowPassword() {
@@ -119,7 +137,7 @@ export class RegisterPage implements OnInit {
     } else {
       this.passwordType = 'text';
     }
-    if (this.passwordIcon === 'eye-off') {
+    if (this.passwordIcon === 'eye-off-outline') {
       this.passwordIcon = 'eye-outline';
     } else {
       this.passwordIcon = 'eye-off-outline';
@@ -129,7 +147,7 @@ export class RegisterPage implements OnInit {
 
   //#region Private Functions
   private resolveRoute() {
-    this.router.navigate([this._returnUrl]);
+    this.router.navigate(['/tabs/vip']);
   }
 
   private async getLocations(): Promise<void> {
@@ -150,6 +168,12 @@ export class RegisterPage implements OnInit {
 
     }
     this._loading = false;
+  }
+
+  private handleReaderLoaded(readerEvt): void {
+
+    const base64String = 'data:image/png;base64,' + btoa(readerEvt.target.result);
+    this.base64textString = base64String;
   }
 
 

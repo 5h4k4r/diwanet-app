@@ -8,6 +8,13 @@
 <ion-content [fullscreen]="true">
   <form class="valign-center" (ngSubmit)="register()" [formGroup]="ngForm">
     <ion-grid>
+      <ion-row>
+        <ion-col size="12">
+          <ion-button class="no-ripple" routerLink="/tabs/vip" fill="clear">
+            <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
       <ion-row color="primary" class="ion-justify-content-center">
         <ion-col size-md="6" size-lg="5" size-xs="12" class="ion-align-self-center d-none d-md-block">
           <div class="d-flex justify-content-center">
@@ -52,7 +59,7 @@
                 <ion-col size="12">
                   <ion-item lines="none">
                     <ion-label position="stacked">Phone</ion-label>
-                    <ion-input inputmode="tel" enterkeyhint="next" type="tel" formControlName="phone" required>
+                    <ion-input enterkeyhint="next" type="text" formControlName="phone" required>
                     </ion-input>
                   </ion-item>
                 </ion-col>
@@ -116,6 +123,22 @@
                   </ion-item>
                 </ion-col>
               </ion-row>
+
+              <ion-row>
+                <ion-col size="12">
+                  <ion-item lines="none">
+                    <ion-label position="stacked">Profile Picture</ion-label>
+
+
+                    <div class="d-flex align-items-center justify-content-between">
+                      <ion-button class="my-2" (click)="input.click()" expand="block" fill="clear">
+                        {{ !base64textString?.length ? 'Upload' : 'Change' }} image
+                      </ion-button>
+                      <img class="my-2" style="width: 15%;" [src]="imageUrl" alt="">
+                    </div>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
               <ion-row>
                 <ion-col size="12">
                   <ion-item lines="none">
@@ -159,4 +182,7 @@
       </ion-row>
     </ion-grid>
   </form>
+
+  <input #input [(ngModel)]="imageInput" type="file" class="invisible" id="fileUploader" accept="image/*"
+    (change)="processFile(input)">
 </ion-content>
