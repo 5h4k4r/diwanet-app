@@ -50,7 +50,7 @@ export class TokenStoreService {
   //#endregion
 
   //#region Functions
-  applyAuthToken(authToken: any): void {
+  applyAuthToken(authToken: string): void {
     this._auth = authToken;
     this.storage.setObject('token', authToken);
   }

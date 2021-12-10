@@ -55,12 +55,11 @@ export class AuthService {
     price_type: 'day' | 'hour';
     password: string;
     email?: string;
-    image?: any;
+    image?: string;
     about?: string;
     facebook?: string;
     instagram?: string;
     snapchat: string;
-
   }): Promise<any> {
     return this.http.post<any>(`${this.baseUrl}/register`, params).toPromise();
   }

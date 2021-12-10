@@ -32,6 +32,8 @@ export class UsersService {
   listServiceMen(params?: {
     service_cat_id?: number;
     vip?: boolean;
+    page?: number;
+    limit?: number;
   }): Promise<ServiceMan[]> {
     this.filterFields(params);
     return this.http.get<ServiceMan[]>(`${this.baseUrl}/servicemen`, { params: this.filterFields(params) }).toPromise();

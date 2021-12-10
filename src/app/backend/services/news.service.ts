@@ -17,8 +17,11 @@ export class NewsService {
     private http: HttpClient
   ) { }
 
-  getNews(): Promise<News[]> {
-    return this.http.get<News[]>(this.baseUrl).toPromise();
+  getNews(params?: {
+    page?: number;
+    limit?: number;
+  }): Promise<News[]> {
+    return this.http.get<News[]>(this.baseUrl, { params }).toPromise();
   }
 
   getNewsById(params: {

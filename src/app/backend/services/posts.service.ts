@@ -12,8 +12,11 @@ export class PostsService {
   ) { }
 
 
-  getCustomerPosts(): Promise<Post[]> {
-    return this.http.get<Post[]>(`${this.baseUrl}`, {}).toPromise();
+  getCustomerPosts(params?: {
+    page?: number;
+    limit?: number;
+  }): Promise<Post[]> {
+    return this.http.get<Post[]>(`${this.baseUrl}`, { params }).toPromise();
   }
 
 }

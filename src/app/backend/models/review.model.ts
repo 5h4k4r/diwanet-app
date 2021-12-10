@@ -4,4 +4,5 @@ export interface Review {
   id?: number;
   id_service_man?: number;
   stars?: number;
+  created_at?: Date;
 }
