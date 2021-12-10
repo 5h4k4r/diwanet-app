@@ -1,1 +1,1 @@
-export type StorageKey = 'user' | 'token';
+export type StorageKey = 'location' | 'token';

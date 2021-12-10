@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Post } from '../models/post.model';
@@ -15,6 +16,7 @@ export class PostsService {
   getCustomerPosts(params?: {
     page?: number;
     limit?: number;
+    location_id: number;
   }): Promise<Post[]> {
     return this.http.get<Post[]>(`${this.baseUrl}`, { params }).toPromise();
   }

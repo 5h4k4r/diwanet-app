@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
@@ -20,6 +21,7 @@ export class NewsService {
   getNews(params?: {
     page?: number;
     limit?: number;
+    location_id: number;
   }): Promise<News[]> {
     return this.http.get<News[]>(this.baseUrl, { params }).toPromise();
   }
