@@ -1,0 +1,31 @@
+<ion-content [fullscreen]="true">
+  <div class="d-flex align-items-center justify-content-center h-100" *ngIf="!loading; else loadingProgress">
+    <div class="w-100 mx-5">
+      <ion-item class="my-2" lines="none">
+        <ion-label>Select your City</ion-label>
+      </ion-item>
+
+      <ion-item class="my-2" lines="none">
+        <ion-icon slot="start" size="large" name="location-outline"></ion-icon>
+        <ion-select placeholder="Select Location" (ionChange)="selectionChanged($event)">
+          <ion-select-option *ngFor="let location of locations" [value]="location">
+            {{location.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+
+      <ion-button class="my-2" (click)="selectLocation()" color="primary" expand="block">
+        Save Changes
+      </ion-button>
+
+
+
+    </div>
+  </div>
+</ion-content>
+
+<ng-template #loadingProgress>
+  <ion-progress-bar type="indeterminate" color="primary"></ion-progress-bar>
+
+</ng-template>
