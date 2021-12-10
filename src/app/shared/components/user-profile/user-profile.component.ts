@@ -76,6 +76,7 @@ export class UserProfileComponent implements OnInit {
         comment: this.comment
       });
       this._reviews.push(reviewResponse);
+      this.comment = null;
     } catch (error) {
 
     }

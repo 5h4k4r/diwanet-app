@@ -13,7 +13,7 @@
 
     <ion-row>
       <ion-col size="12" class="text-center">
-        <!-- <img src="/assets/images/mock/user.png" alt="" class="user-image"> -->
+        <img src="/assets/images/mock/user.png" alt="" class="user-image">
         <p class="mt-2 light-color">{{user?.name}}</p>
       </ion-col>
     </ion-row>
@@ -65,10 +65,16 @@
 
     <ion-list *ngSwitchCase="'review'">
       <div class="review-item" *ngFor="let review of user?.review">
-        <div class="d-flex justify-content-center">
-          <app-rating-stars [stars]="review?.stars " [disabled]="true"></app-rating-stars>
+        <div class="d-flex align-items center">
+          <div>
+            <span class="created_at_review">{{ review?.created_at | date:'d/M/yy' }}</span>
+            <app-rating-stars [stars]="review?.stars " [disabled]="true">
+            </app-rating-stars>
+          </div>
         </div>
-        <p class="text-center">{{ review.comment }}</p>
+        <div>
+          <p class="dark-color">{{ review.comment }}</p>
+        </div>
       </div>
       <ion-item-divider>
         <ion-label>Leave a review</ion-label>
