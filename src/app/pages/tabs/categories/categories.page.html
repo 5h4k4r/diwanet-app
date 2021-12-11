@@ -41,7 +41,8 @@
       </ion-buttons>
       <ion-title>{{selectedCategory.name}} Servicemen</ion-title>
     </ion-toolbar>
-    <ng-container *ngIf="users.length;else noResultFound">
+    <ng-container *ngIf="users.length;else noResultFound" infiniteScroll [infiniteScrollDistance]="3"
+      [infiniteScrollThrottle]="150" (scrolled)="onScroll()" [scrollWindow]="false">
 
       <app-user-card-view *ngFor="let user of users" [user]="user"></app-user-card-view>
     </ng-container>
