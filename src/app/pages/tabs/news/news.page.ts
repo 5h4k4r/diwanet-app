@@ -1,8 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { ModalController, Platform } from '@ionic/angular';
+/* eslint-disable @typescript-eslint/naming-convention */
+import { Component, EventEmitter, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { IonInfiniteScroll, ModalController, Platform } from '@ionic/angular';
+import { merge, of, Subject } from 'rxjs';
+import { catchError, map, switchMap, takeUntil } from 'rxjs/operators';
 import { News } from 'src/app/backend/models/news.model';
+import { LocalStorageService } from 'src/app/backend/services/local-storage.service';
 import { NewsService } from 'src/app/backend/services/news.service';
 import { TokenStoreService } from 'src/app/backend/services/token-store.service';
+import { MessagingService } from 'src/app/shared/services/messaging.service';
 import { NewsAddComponent } from './components/news-add/news-add.component';
 import { NewsViewComponent } from './components/news-view/news-view.component';
 
@@ -11,12 +16,20 @@ import { NewsViewComponent } from './components/news-view/news-view.component';
   templateUrl: './news.page.html',
   styleUrls: ['./news.page.scss'],
 })
-export class NewsPage implements OnInit {
+export class NewsPage implements OnInit, OnDestroy {
   //#region Fields
+  @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
 
   private _newsList: News[] | undefined;
   private _loading = false;
   private _hasError = false;
+  private _newData = new EventEmitter<undefined>();
+  private _destroy$ = new Subject();
+
+
+  private _pageNumber = 0;
+  private _limit = 3;
+
   //#endregion
 
 
@@ -28,6 +41,10 @@ export class NewsPage implements OnInit {
   get hasError(): boolean { return this._hasError; }
 
   get accessToken(): string | undefined { return this.tokenStore.accessToken; }
+
+  get pageNumber(): number { return this._pageNumber; }
+  get limit(): number { return this._limit; }
+  get location_id(): number { return this.storage.getObject('location')?.id ?? undefined; }
   //#endregion
 
 
@@ -39,6 +56,8 @@ export class NewsPage implements OnInit {
     private platform: Platform,
     private modalController: ModalController,
     private tokenStore: TokenStoreService,
+    private messagingService: MessagingService,
+    private storage: LocalStorageService,
   ) { }
 
 
@@ -48,25 +67,40 @@ export class NewsPage implements OnInit {
   //#region Functions
 
   ngOnInit() {
-    this.listNews();
-  }
+    merge(this.messagingService.locationChange, this._newData).pipe(
+      switchMap(() => {
+        this._loading = true;
+        this._hasError = false;
 
-  async listNews(): Promise<void> {
 
-    this._hasError = false;
-    this._loading = true;
 
-    try {
+        return this.newsService.getNews({
+          page: this.pageNumber,
+          limit: this.limit,
+          location_id: this.location_id
+        });
+      }),
+      map(data => {
 
-      this._newsList = await this.newsService.getNews();
 
-    } catch (error) {
+        this._loading = false;
 
-      this._hasError = true;
+        return data;
+      }),
+      takeUntil(this._destroy$),
+      catchError(() => {
+        this._loading = false;
+        this._hasError = true;
+        return of([]);
+      })
+    ).subscribe(data => {
+      if (!this._newsList?.length)
+        this._newsList = data ?? [];
+      else
+        this._newsList = this._newsList?.concat(data ?? []);
 
-    }
-    this._loading = false;
-
+    });
+    this.getNewData();
   }
 
   async addNews(): Promise<void> {
@@ -88,6 +122,19 @@ export class NewsPage implements OnInit {
 
   }
 
+  getNewData(): void {
+    this._newData.emit();
+  }
+
+  onScroll(): void {
+    this._pageNumber += 1;
+    this.getNewData();
+  }
+
+  ngOnDestroy(): void {
+    this._destroy$.next(null);
+    this._destroy$.complete();
+  }
   //#endregion
 
 

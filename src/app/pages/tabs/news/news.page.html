@@ -17,10 +17,14 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div class="full-page-container" [class]="isAndroid ? 'android-height' : 'ios-height'"
-    *ngIf="!loading; else progressSpinner">
+  <ng-container *ngIf="loading" [ngTemplateOutlet]="progressSpinner"></ng-container>
+
+
+  <div infiniteScroll [infiniteScrollDistance]="3" [infiniteScrollThrottle]="150" (scrolled)="onScroll()"
+    [scrollWindow]="false" class="full-page-container" [class]="isAndroid ? 'android-height' : 'ios-height'"
+    *ngIf="newsList?.length">
     <section [class]="isAndroid ? 'android-height' : 'ios-height'" [style]="'background-image:url('
-      +item?.last_image?.name+')'" *ngFor="let item of newsList">
+      +item?.last_image?.name+')'" style="text-align: start;" *ngFor="let item of newsList">
       <div class="overlay">
         <div class="d-flex align-items-center">
           <img *ngIf="item?.service_man?.image" [src]="item.service_man.image" class="profile-image me-1">
@@ -46,6 +50,7 @@
 
 
   </div>
+
 </ion-content>
 <ng-template #progressSpinner>
   <ion-progress-bar color="primary" type="indeterminate"></ion-progress-bar>
