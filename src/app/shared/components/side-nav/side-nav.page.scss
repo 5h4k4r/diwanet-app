@@ -27,16 +27,14 @@
 }
 
 .active {
-  border: 3px solid #333;
-  padding: 2px;
-  border-radius: 50%;
+  --color: var(--ion-color-primary);
+  font-weight: bolder;
   transition: all 0.2s;
 }
 
 .deactive {
-  border: none;
-  padding: 0;
-  border-radius: 0;
+  --color: var(--ion-color-dark);
+  font-weight: noraml;
   transition: all 0.2s;
 }
 
@@ -44,8 +42,9 @@ ion-item:not(.flags, ion-item:first-child) {
   border-top: 2px solid #c8c7cc;
 }
 
-.flags {
+.locations {
   z-index: -1;
+  display: block;
 }
 
 .slideOutUp {
@@ -56,7 +55,7 @@ ion-item:not(.flags, ion-item:first-child) {
 
 .slideInDown {
   opacity: 1;
-  height: 70px;
+  height: 80px;
   transition: opacity 0.2s, height 0.2s;
 }
 

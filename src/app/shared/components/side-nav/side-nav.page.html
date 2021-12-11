@@ -13,37 +13,27 @@
     <ion-item button detail="false" lines="none" (click)="navigate('/auth/login')" *ngIf="!accessToken?.length">
       <ion-label>Login</ion-label>
     </ion-item>
-    <ion-item button detail="false" lines="none" (click)="navigate('/auth/register')">
+    <ion-item button detail="false" lines="none" (click)="navigate('/auth/register')" *ngIf="!accessToken?.length">
       <ion-label>Register</ion-label>
     </ion-item>
-    <ion-item button detail="false" lines="none">
+    <!-- Flags Item Start-->
+    <ion-item detail lines="none" (click)="expanded = !expanded"
+      [detailIcon]="expanded ? 'chevron-down-outline' : 'chevron-forward-outline'">
       <ion-label>Location</ion-label>
     </ion-item>
+    <div class="animated faster locations px-3 mt-1" [class.slideOutUp]="!expanded" [class.slideInDown]="expanded">
+      <ion-button expand="block" fill="clear" *ngFor="let location of locations" (click)="selectLocation(location)"
+        [class.active]="selectedLocation.id === location.id" [class.deactive]="selectedLocation.id !== location.id">
+
+        {{location.name}}
+
+      </ion-button>
+    </div>
+    <!-- Flags Item End -->
     <ion-item button detail="false" lines="none">
       <ion-label>Language</ion-label>
     </ion-item>
 
-    <!-- Flags Item Start-->
-    <!-- <ion-item detail lines="none" (click)="expanded = !expanded"
-        [detailIcon]="expanded ? 'chevron-down-outline' : 'chevron-forward-outline'">
-        <ion-label>{{ 'MAIN_NAV.LANGUAGE' | translate}}</ion-label>
-      </ion-item>
-      <ion-item lines="none" class="animated faster flags" [class.slideOutUp]="!expanded"
-        [class.slideInDown]="expanded">
-        <ion-row>
-          <ion-col>
-            <img src="/assets/img/ku.png" height="50px" (click)="selectedLang = 'ku'"
-              [class.active]="selectedLang === 'ku'" [class.deactive]="selectedLang !== 'ku'"
-              (click)="setLanguage('ku')">
-          </ion-col>
-          <ion-col>
-            <img src="/assets/img/uk.png" height="50px" (click)="selectedLang = 'en'"
-              [class.active]="selectedLang === 'en'" [class.deactive]="selectedLang !== 'en'"
-              (click)="setLanguage('en')">
-          </ion-col>
-        </ion-row>
-      </ion-item> -->
-    <!-- Flags Item End -->
 
     <ion-item button detail="false" lines="none" (click)="aboutModal()">
       <ion-label>About</ion-label>
