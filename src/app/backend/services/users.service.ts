@@ -34,6 +34,7 @@ export class UsersService {
     vip?: boolean;
     page?: number;
     limit?: number;
+    location_id: number;
   }): Promise<ServiceMan[]> {
     this.filterFields(params);
     return this.http.get<ServiceMan[]>(`${this.baseUrl}/servicemen`, { params: this.filterFields(params) }).toPromise();
