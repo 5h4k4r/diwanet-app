@@ -9,6 +9,7 @@ import { VipPageRoutingModule } from './vip-routing.module';
 import { VipPage } from './vip.page';
 import { NgxStarRatingModule } from 'ngx-star-rating';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     ReactiveFormsModule,
     IonicModule,
     VipPageRoutingModule,
-    SharedModule
+    SharedModule,
+    InfiniteScrollModule,
   ],
   declarations: [VipPage]
 })

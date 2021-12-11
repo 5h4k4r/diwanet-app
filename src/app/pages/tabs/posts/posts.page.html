@@ -11,7 +11,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" infiniteScroll [infiniteScrollDistance]="3" [infiniteScrollThrottle]="150"
+  (scrolled)="onScroll()" [scrollWindow]="false">
   <ion-card>
     <img src="/assets/images/mock/portrait.jpg" />
     <ion-card-header>
