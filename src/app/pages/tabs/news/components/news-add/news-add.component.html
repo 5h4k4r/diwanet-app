@@ -1,3 +1,51 @@
-<p>
-  news-add works!
-</p>
+<ion-content [fullscreen]="true">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Add News</ion-title>
+      <ion-buttons slot="start">
+        <ion-button (click)="closeModal()" fill="clear">
+          <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+
+  <input #input [(ngModel)]="imageInput" type="file" class="d-none" id="fileUploader" accept="image/*" multiple
+    (change)="processFile(input)">
+
+  <ng-container [formGroup]="form">
+
+    <ion-item lines="none">
+
+      <ion-input formControlName="title" type="text" placeholder="Enter title" class="width-100"></ion-input>
+    </ion-item>
+
+    <ion-item lines="none" *ngIf="submitted && form?.controls.title?.errors?.required">
+      <p class="danger-color">This field is required</p>
+
+    </ion-item>
+    <ion-item lines="none">
+
+      <ion-textarea formControlName="detail" placeholder="Enter news description" class="width-100"></ion-textarea>
+    </ion-item>
+    <ion-item lines="none" *ngIf="submitted && form?.controls.detail?.errors?.required">
+
+      <p class="danger-color">This field is required</p>
+    </ion-item>
+
+
+    <ion-button (click)="input.click()" expand="block" fill="clear">
+      {{ imageUrls?.length ? 'Change' : 'Upload'}} images
+    </ion-button>
+
+    <ion-item style="overflow: auto;" lines="none" *ngIf="imageUrls?.length">
+      <img style="width: 100px;" class="image" *ngFor="let src of imageUrls" [src]="src" (click)="openImage(src)">
+    </ion-item>
+
+    <ion-button (click)="addNews()" expand="block" color="primary" type="submit">
+      Add News
+    </ion-button>
+  </ng-container>
+
+</ion-content>
