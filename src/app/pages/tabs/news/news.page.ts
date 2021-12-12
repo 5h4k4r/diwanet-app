@@ -67,7 +67,13 @@ export class NewsPage implements OnInit, OnDestroy {
   //#region Functions
 
   ngOnInit() {
-    merge(this.messagingService.locationChange, this._newData).pipe(
+    this.messagingService.locationChange.pipe(takeUntil(this._destroy$)).subscribe(_ => {
+      this._pageNumber = 0;
+      this._newsList = [];
+      this.getNewData();
+    });
+
+    this._newData.pipe(
       switchMap(() => {
         this._loading = true;
         this._hasError = false;

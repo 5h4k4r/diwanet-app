@@ -22,7 +22,7 @@
 
   <div infiniteScroll [infiniteScrollDistance]="3" [infiniteScrollThrottle]="150" (scrolled)="onScroll()"
     [scrollWindow]="false" class="full-page-container" [class]="isAndroid ? 'android-height' : 'ios-height'"
-    *ngIf="newsList?.length">
+    *ngIf="newsList?.length;else noResultFound">
     <section [class]="isAndroid ? 'android-height' : 'ios-height'" [style]="'background-image:url('
       +item?.last_image?.name+')'" style="text-align: start;" *ngFor="let item of newsList">
       <div class="overlay">
@@ -54,4 +54,13 @@
 </ion-content>
 <ng-template #progressSpinner>
   <ion-progress-bar color="primary" type="indeterminate"></ion-progress-bar>
+</ng-template>
+
+
+<ng-template #noResultFound>
+
+  <div *ngIf="!loading" class="medium-color mt-5 d-flex align-items-center justify-content-center">
+    No results found
+  </div>
+
 </ng-template>
