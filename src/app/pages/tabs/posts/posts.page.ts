@@ -3,8 +3,10 @@ import { Component, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 import { merge, of, Subject } from 'rxjs';
 import { catchError, map, switchMap, takeUntil } from 'rxjs/operators';
 import { Post } from 'src/app/backend/models/post.model';
+import { CommentsService } from 'src/app/backend/services/comments.service';
 import { LocalStorageService } from 'src/app/backend/services/local-storage.service';
 import { PostsService } from 'src/app/backend/services/posts.service';
+import { TokenStoreService } from 'src/app/backend/services/token-store.service';
 import { MessagingService } from 'src/app/shared/services/messaging.service';
 
 @Component({
@@ -33,7 +35,7 @@ export class PostsPage implements OnInit, OnDestroy {
   get pageNumber(): number { return this._pageNumber; }
   get limit(): number { return this._limit; }
   get location_id(): number { return this.storage.getObject('location')?.id ?? undefined; }
-
+  get access_token(): string { return this.tokenStore.accessToken; }
   //#endregion
 
 
@@ -43,6 +45,8 @@ export class PostsPage implements OnInit, OnDestroy {
     private postsService: PostsService,
     private messagingService: MessagingService,
     private storage: LocalStorageService,
+    private commentsService: CommentsService,
+    private tokenStore: TokenStoreService,
   ) { }
 
 
@@ -54,7 +58,13 @@ export class PostsPage implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    merge(this.messagingService.locationChange, this._newData).pipe(
+    this.messagingService.locationChange.pipe(takeUntil(this._destroy$)).subscribe(_ => {
+      this._pageNumber = 0;
+      this._posts = [];
+      this.getNewData();
+    });
+
+    this._newData.pipe(
       switchMap(() => {
         this._loading = true;
         this._hasError = false;
@@ -83,7 +93,6 @@ export class PostsPage implements OnInit, OnDestroy {
         return of([]);
       })
     ).subscribe(data => {
-      this._pageNumber += 1;
       this._posts = data;
     });
     this.getNewData();
@@ -96,6 +105,19 @@ export class PostsPage implements OnInit, OnDestroy {
   onScroll(): void {
     this._pageNumber += 1;
     this.getNewData();
+  }
+
+  async addComment(postId: number, inputEvent: any): Promise<void> {
+    console.log(postId, inputEvent.value);
+    try {
+      const response = await this.commentsService.addComment({
+        customer_post_id: postId,
+        comment: inputEvent.value
+      });
+    } catch (error) {
+
+    }
+    inputEvent.value = null;
   }
 
   ngOnDestroy(): void {

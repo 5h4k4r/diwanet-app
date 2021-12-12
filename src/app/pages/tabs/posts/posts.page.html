@@ -13,15 +13,34 @@
 
 <ion-content [fullscreen]="true" infiniteScroll [infiniteScrollDistance]="3" [infiniteScrollThrottle]="150"
   (scrolled)="onScroll()" [scrollWindow]="false">
-  <ion-card>
-    <img src="/assets/images/mock/portrait.jpg" />
-    <ion-card-header>
-      <ion-card-subtitle>Destination</ion-card-subtitle>
-      <ion-card-title>Madison, WI</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the Wisconsin
-      Territory in 1836.
-    </ion-card-content>
-  </ion-card>
+  <ng-container *ngIf="posts?.length; else noResultFound">
+    <ion-card *ngFor="let item of posts" [style]="access_token ? 'padding-bottom: 50px;' : ''">
+      <ion-card-header>
+        <ion-card-subtitle>{{ item.created_at | date}}</ion-card-subtitle>
+        <ion-card-title>{{ item?.service_category?.name }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        {{ item?.detail }}
+        {{item.id | json}}
+      </ion-card-content>
+      <div class="comment-section" *ngIf="access_token">
+        <div class="first-column">
+          <ion-input #input type="text" placeholder="Add a comment" class="m-0"></ion-input>
+        </div>
+        <div class="second-column">
+          <ion-button (click)="addComment(item?.id, input)" fill="clear">
+            <ion-icon name="send-outline"></ion-icon>
+          </ion-button>
+        </div>
+      </div>
+    </ion-card>
+  </ng-container>
+
+  <ng-template #noResultFound>
+
+    <div *ngIf="!loading" class="medium-color mt-5 d-flex align-items-center justify-content-center">
+      No results found
+    </div>
+
+  </ng-template>
 </ion-content>
