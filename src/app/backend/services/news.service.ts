@@ -36,6 +36,7 @@ export class NewsService {
     title: string;
     detail: string;
     images: string[];
+    location_id: number;
   }): Promise<News> {
 
     return this.http.post<News>(this.baseUrl, params).toPromise();
