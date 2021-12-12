@@ -70,7 +70,13 @@ export class VipPage implements OnInit, OnDestroy {
 
     this._loading = false;
 
-    merge(this.messagingService.locationChange, this._newData).pipe(
+    this.messagingService.locationChange.pipe(takeUntil(this._destroy$)).subscribe(_ => {
+      this._pageNumber = 0;
+      this._users = [];
+      this.getNewData();
+    });
+
+    this._newData.pipe(
       switchMap(() => {
         this._loading = true;
         this._hasError = false;
@@ -101,7 +107,6 @@ export class VipPage implements OnInit, OnDestroy {
         return of([]);
       })
     ).subscribe(data => {
-      this._pageNumber += 1;
       this._users = data;
     });
     this.getNewData();
