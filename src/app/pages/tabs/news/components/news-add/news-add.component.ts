@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
+import { LocalStorageService } from 'src/app/backend/services/local-storage.service';
 import { NewsService } from 'src/app/backend/services/news.service';
 import { ImagePreviewComponent } from 'src/app/shared/components/image-preview/image-preview.component';
 @Component({
@@ -30,6 +32,8 @@ export class NewsAddComponent implements OnInit {
   get submitted(): boolean { return this._submitted; }
   get hasError(): boolean { return this._hasError; }
   get loading(): boolean { return this._loading; }
+  get location_id(): number { return this.storage.getObject('location')?.id ?? undefined; }
+
 
   //#endregion
 
@@ -40,6 +44,7 @@ export class NewsAddComponent implements OnInit {
     private modalController: ModalController,
     private newsService: NewsService,
     private fb: FormBuilder,
+    private storage: LocalStorageService
   ) { }
 
 
@@ -61,7 +66,12 @@ export class NewsAddComponent implements OnInit {
 
     try {
 
-      await this.newsService.addNews({ title: form.title, detail: form.detail, images: this.base64textString });
+      await this.newsService.addNews({
+        title: form.title,
+        detail: form.detail,
+        images: this.base64textString,
+        location_id: this.location_id
+      });
       this.closeModal();
     } catch (error) {
 
