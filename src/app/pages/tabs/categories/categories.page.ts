@@ -58,7 +58,14 @@ export class CategoriesPage implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    merge(this._getServiceMen, this.messagingService.locationChange).pipe(
+    this.messagingService.locationChange.pipe(takeUntil(this._destroy$)).subscribe(_ => {
+      this._pageNumber = 0;
+      this._users = [];
+      if (this._selectedCategory)
+        this.listServiceMen();
+    });
+
+    this._getServiceMen.pipe(
       switchMap(() => {
         this._loading = true;
         this._hasError = false;
