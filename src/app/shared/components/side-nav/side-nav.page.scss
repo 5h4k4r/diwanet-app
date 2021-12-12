@@ -38,24 +38,28 @@
   transition: all 0.2s;
 }
 
-ion-item:not(.flags, ion-item:first-child) {
+ion-item:not(.flags, .locations ion-item, ion-item:first-child) {
   border-top: 2px solid #c8c7cc;
 }
 
 .locations {
   z-index: -1;
   display: block;
+  ion-item {
+    --background: transparent;
+    font-size: small;
+    --min-height: 30px;
+  }
 }
 
 .slideOutUp {
   opacity: 0;
-  height: 1px;
+  height: 0px;
   transition: opacity 0.2s, height 0.2s;
 }
 
 .slideInDown {
   opacity: 1;
-  height: 80px;
   transition: opacity 0.2s, height 0.2s;
 }
 

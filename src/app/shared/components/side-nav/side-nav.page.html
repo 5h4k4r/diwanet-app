@@ -21,13 +21,14 @@
       [detailIcon]="expanded ? 'chevron-down-outline' : 'chevron-forward-outline'">
       <ion-label>Location</ion-label>
     </ion-item>
-    <div class="animated faster locations px-3 mt-1" [class.slideOutUp]="!expanded" [class.slideInDown]="expanded">
-      <ion-button expand="block" fill="clear" *ngFor="let location of locations" (click)="selectLocation(location)"
-        [class.active]="selectedLocation.id === location.id" [class.deactive]="selectedLocation.id !== location.id">
+    <div class="animated faster locations" [class.slideOutUp]="!expanded" [class.slideInDown]="expanded">
+      <ion-item lines="none" expand="block" fill="clear" *ngFor="let location of locations"
+        (click)="selectLocation(location)" [class.active]="selectedLocation.id === location.id"
+        [class.deactive]="selectedLocation.id !== location.id">
 
         {{location.name}}
 
-      </ion-button>
+      </ion-item>
     </div>
     <!-- Flags Item End -->
     <ion-item button detail="false" lines="none">

@@ -7,6 +7,7 @@ import { LocalStorageService } from 'src/app/backend/services/local-storage.serv
 import { LocationsService } from 'src/app/backend/services/locations.service';
 import { SettingsService } from 'src/app/backend/services/settings.service';
 import { TokenStoreService } from 'src/app/backend/services/token-store.service';
+import { MessagingService } from '../../services/messaging.service';
 import { AboutContactComponent } from '../about-contact/about-contact.component';
 
 @Component({
@@ -49,6 +50,7 @@ export class SideNavPage implements OnInit {
     private authService: AuthService,
     private storage: LocalStorageService,
     private locationsService: LocationsService,
+    private messagingService: MessagingService
   ) { }
 
   //#endregion
@@ -69,6 +71,7 @@ export class SideNavPage implements OnInit {
   selectLocation(location: Location): void {
     this.storage.setObject('location', location);
     this.selectedLocation = location;
+    this.messagingService.locationChanged();
   }
 
   async aboutModal(): Promise<void> {
