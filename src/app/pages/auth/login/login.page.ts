@@ -46,8 +46,8 @@ export class LoginPage implements OnInit {
   //#region Funtions
   async ngOnInit(): Promise<void> {
     this.ngForm = new FormGroup({
-      handle: new FormControl('07702254426', Validators.required),
-      password: new FormControl('123456', Validators.required)
+      handle: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required)
     });
     // get return url from route parameters or default to '/dashboard-tabs'
     this._returnUrl = this.route.snapshot.queryParams.returnUrl || '/tabs/vip';
