@@ -17,8 +17,8 @@ export class NewsAddComponent implements OnInit {
   imageUrls: any[] | undefined = [];
   form = this.fb.group({
     images: [null],
-    title: ['', Validators.required],
-    detail: ['', Validators.required]
+    title: [null, Validators.required],
+    detail: [null, Validators.required]
   });
 
   private _submitted = false;
@@ -66,13 +66,12 @@ export class NewsAddComponent implements OnInit {
 
     try {
 
-      await this.newsService.addNews({
+      const news = await this.newsService.addNews({
         title: form.title,
         detail: form.detail,
-        images: this.base64textString,
-        location_id: this.location_id
+        images: this.base64textString
       });
-      this.closeModal();
+      this.closeModal(news);
     } catch (error) {
 
       this._hasError = true;
