@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Component, EventEmitter, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { IonContent, ModalController } from '@ionic/angular';
 import { merge, of, Subject } from 'rxjs';
 import { catchError, map, switchMap, takeUntil } from 'rxjs/operators';
 import { Post } from 'src/app/backend/models/post.model';
@@ -8,6 +9,7 @@ import { LocalStorageService } from 'src/app/backend/services/local-storage.serv
 import { PostsService } from 'src/app/backend/services/posts.service';
 import { TokenStoreService } from 'src/app/backend/services/token-store.service';
 import { MessagingService } from 'src/app/shared/services/messaging.service';
+import { PostsAddComponent } from './components/posts-add/posts-add.component';
 
 @Component({
   selector: 'app-posts',
@@ -16,6 +18,9 @@ import { MessagingService } from 'src/app/shared/services/messaging.service';
 })
 export class PostsPage implements OnInit, OnDestroy {
   //#region Fields
+  @ViewChild(IonContent) ionContent: IonContent;
+
+
   showLoadMoreButton = false;
 
   private _posts: Post[] | undefined;
@@ -35,7 +40,7 @@ export class PostsPage implements OnInit, OnDestroy {
   get pageNumber(): number { return this._pageNumber; }
   get limit(): number { return this._limit; }
   get location_id(): number { return this.storage.getObject('location')?.id ?? undefined; }
-  get access_token(): string { return this.tokenStore.accessToken; }
+  get accessToken(): string { return this.tokenStore.accessToken; }
   //#endregion
 
 
@@ -47,6 +52,7 @@ export class PostsPage implements OnInit, OnDestroy {
     private storage: LocalStorageService,
     private commentsService: CommentsService,
     private tokenStore: TokenStoreService,
+    private modalController: ModalController,
   ) { }
 
 
@@ -105,6 +111,21 @@ export class PostsPage implements OnInit, OnDestroy {
   onScroll(): void {
     this._pageNumber += 1;
     this.getNewData();
+  }
+
+  async addPost(): Promise<void> {
+    const modal = await this.modalController.create({
+      component: PostsAddComponent
+    });
+
+    await modal.present();
+    const post = (await modal.onDidDismiss()).data;
+
+    if (!post) return;
+    this._posts.unshift(post);
+    this.ionContent.scrollToTop();
+
+
   }
 
   async addComment(postId: number, inputEvent: any): Promise<void> {

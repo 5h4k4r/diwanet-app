@@ -1,0 +1,82 @@
+<ion-content [fullscreen]="true">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Add Post</ion-title>
+      <ion-buttons slot="start">
+        <ion-button (click)="closeModal()" fill="clear">
+          <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+
+  <div [formGroup]="form">
+
+    <ion-item lines="full">
+
+      <ion-input formControlName="name" type="text" placeholder="Enter name" class="width-100"></ion-input>
+
+
+    </ion-item>
+    <ion-item lines="none" *ngIf="submitted && form?.controls.name?.errors?.required">
+      <small class="danger-color">This field is required
+      </small>
+    </ion-item>
+
+    <ion-item lines="full">
+
+      <ion-input formControlName="phone" type="tel" placeholder="Enter phone" class="width-100"></ion-input>
+
+
+    </ion-item>
+    <ion-item lines="none" *ngIf="submitted && form?.controls.phone?.errors?.required">
+      <small class="danger-color">This field is required
+      </small>
+    </ion-item>
+
+    <ion-item lines="full">
+
+      <ion-select [value]="undefined" placeholder="Select Category" formControlName="category_id" class="width-100">
+        <ion-select-option [value]="undefined">None</ion-select-option>
+        <ion-select-option *ngFor="let category of categories" [value]="category.id">{{ category.name }}
+        </ion-select-option>
+      </ion-select>
+
+    </ion-item>
+    <ion-item lines="none" *ngIf="submitted && form?.controls.category_id?.errors?.required">
+      <small class="danger-color">This field is required
+      </small>
+    </ion-item>
+
+    <ion-item lines="full">
+
+      <ion-select [value]="undefined" placeholder="Select City" formControlName="location_id" class="width-100">
+        <ion-select-option [value]="undefined">None</ion-select-option>
+        <ion-select-option *ngFor="let location of locations" [value]="location.id">{{ location.name }}
+        </ion-select-option>
+      </ion-select>
+
+    </ion-item>
+    <ion-item lines="none" *ngIf="submitted && form?.controls.location_id?.errors?.required">
+      <small class="danger-color">This field is required
+      </small>
+    </ion-item>
+
+    <ion-item lines="full">
+
+      <ion-textarea formControlName="detail" placeholder="Enter post description" class="width-100"></ion-textarea>
+
+
+    </ion-item>
+    <ion-item lines="none" *ngIf="submitted && form?.controls.detail?.errors?.required">
+      <small class="danger-color">This field is required
+      </small>
+    </ion-item>
+    <ion-button (click)="addPost()" expand="block" color="primary" type="submit"
+      [disabled]="(submitted && form.invalid) || loading">
+      Add Post
+    </ion-button>
+  </div>
+
+</ion-content>

@@ -8,22 +8,27 @@
         <ion-icon name="menu-outline"></ion-icon>
       </ion-menu-button>
     </ion-buttons>
+    <ion-buttons slot="end" *ngIf="!accessToken?.length">
+      <ion-button (click)="addPost()" fill="clear">
+        <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" infiniteScroll [infiniteScrollDistance]="3" [infiniteScrollThrottle]="150"
   (scrolled)="onScroll()" [scrollWindow]="false">
   <ng-container *ngIf="posts?.length; else noResultFound">
-    <ion-card *ngFor="let item of posts" [style]="access_token ? 'padding-bottom: 50px;' : ''">
+    <ion-card *ngFor="let item of posts" [style]="accessToken ? 'padding-bottom: 50px;' : ''">
       <ion-card-header>
-        <ion-card-subtitle>{{ item.created_at | date}}</ion-card-subtitle>
+        <ion-card-subtitle>{{ item.created_at | date }}</ion-card-subtitle>
         <ion-card-title>{{ item?.service_category?.name }}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
         {{ item?.detail }}
-        {{item.id | json}}
+
       </ion-card-content>
-      <div class="comment-section" *ngIf="access_token">
+      <div class="comment-section" *ngIf="accessToken">
         <div class="first-column">
           <ion-input #input type="text" placeholder="Add a comment" class="m-0"></ion-input>
         </div>
