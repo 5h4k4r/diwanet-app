@@ -29,14 +29,13 @@ export class NewsService {
   getNewsById(params: {
     id: number;
   }): Promise<News> {
-    return this.http.get<News>(`${this.baseUrl}/${params.id}`).pipe(map(newsList => newsList[0])).toPromise();
+    return this.http.get<News>(`${this.baseUrl}/${params.id}`).toPromise();
   }
 
   addNews(params: {
     title: string;
     detail: string;
     images: string[];
-    location_id: number;
   }): Promise<News> {
 
     return this.http.post<News>(this.baseUrl, params).toPromise();

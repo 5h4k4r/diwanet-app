@@ -21,4 +21,15 @@ export class PostsService {
     return this.http.get<Post[]>(`${this.baseUrl}`, { params }).toPromise();
   }
 
+  addPost(params: {
+    name: string;
+    phone: string;
+    category_id: number;
+    detail: string;
+    location_id: number;
+  }): Promise<Post> {
+
+    return this.http.post<Post>(this.baseUrl, params).toPromise();
+  }
+
 }
