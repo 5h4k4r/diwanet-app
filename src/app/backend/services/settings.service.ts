@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class SettingsService {
-  baseUrl = 'https://diwanet.com/api/settings';
+  baseUrl = 'https://diwanet.com/public/api/settings';
 
   constructor(
     private http: HttpClient,

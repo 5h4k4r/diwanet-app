@@ -7,7 +7,7 @@ import { Post } from '../models/post.model';
   providedIn: 'root'
 })
 export class PostsService {
-  baseUrl = 'https://diwanet.com/api/posts';
+  baseUrl = 'https://diwanet.com/public/api/posts';
   constructor(
     private http: HttpClient
   ) { }

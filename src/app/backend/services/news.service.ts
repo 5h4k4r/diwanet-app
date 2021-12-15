@@ -11,7 +11,7 @@ class ImageSnippet {
 })
 export class NewsService {
 
-  baseUrl = 'https://diwanet.com/api/news';
+  baseUrl = 'https://diwanet.com/public/api/news';
 
 
   constructor(

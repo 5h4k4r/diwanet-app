@@ -10,6 +10,7 @@ import { NgxStarRatingModule } from 'ngx-star-rating';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SideNavPageModule } from './shared/components/side-nav/side-nav.module';
 import { RequestInterceptor } from './interceptors/request.interceptor';
+import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -23,6 +24,7 @@ import { RequestInterceptor } from './interceptors/request.interceptor';
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: LocationStrategy, useClass: PathLocationStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
 
   ],

@@ -6,7 +6,7 @@ import { Category } from '../models/category.model';
   providedIn: 'root'
 })
 export class CategoriesService {
-  private baseUrl = 'https://diwanet.com/api/categories';
+  private baseUrl = 'https://diwanet.com/public/api/categories';
   constructor(
     private http: HttpClient,
   ) {

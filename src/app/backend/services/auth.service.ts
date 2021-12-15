@@ -11,7 +11,7 @@ import { TokenStoreService } from './token-store.service';
   providedIn: 'root'
 })
 export class AuthService {
-  baseUrl = 'https://diwanet.com/api';
+  baseUrl = 'https://diwanet.com/public/api';
   constructor(
     private http: HttpClient,
     private tokenStore: TokenStoreService,

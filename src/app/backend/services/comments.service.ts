@@ -8,7 +8,7 @@ import { Comment } from '../models/comment.model';
 })
 export class CommentsService {
 
-  baseUrl = 'https://diwanet.com/api/comments';
+  baseUrl = 'https://diwanet.com/public/api/comments';
   constructor(
     private http: HttpClient
   ) { }

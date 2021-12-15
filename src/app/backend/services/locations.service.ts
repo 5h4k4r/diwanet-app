@@ -6,7 +6,7 @@ import { Location } from 'src/app/backend/models/location.model';
   providedIn: 'root'
 })
 export class LocationsService {
-  baseUrl = 'https://diwanet.com/api/locations';
+  baseUrl = 'https://diwanet.com/public/api/locations';
 
   constructor(
     private http: HttpClient
