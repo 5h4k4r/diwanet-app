@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Component, EventEmitter, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { IonInfiniteScroll, ModalController, Platform } from '@ionic/angular';
-import { merge, of, Subject } from 'rxjs';
+import { Component, EventEmitter, OnDestroy, OnInit } from '@angular/core';
+import { ModalController, Platform } from '@ionic/angular';
+import { of, Subject } from 'rxjs';
 import { catchError, map, switchMap, takeUntil } from 'rxjs/operators';
 import { News } from 'src/app/backend/models/news.model';
 import { LocalStorageService } from 'src/app/backend/services/local-storage.service';
@@ -18,7 +18,6 @@ import { NewsViewComponent } from './components/news-view/news-view.component';
 })
 export class NewsPage implements OnInit, OnDestroy {
   //#region Fields
-  @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
 
   private _newsList: News[] | undefined;
   private _loading = false;
@@ -115,8 +114,18 @@ export class NewsPage implements OnInit, OnDestroy {
     });
 
     await modal.present();
-    const response = await modal.onDidDismiss();
-    console.log(response);
+    const news: News = (await modal.onDidDismiss()).data;
+    if (!news) return;
+
+    news.last_image = news.images[news.images.length - 1];
+    this._newsList.unshift(news);
+
+
+    setTimeout(() => {
+      document.getElementById('full-page-container').scrollTo(0, 0);
+    }, 1000);
+
+
   }
   async openNews(id: number): Promise<void> {
     const modal = await this.modalController.create({
