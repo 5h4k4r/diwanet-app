@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController, ModalController } from '@ionic/angular';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { Location } from 'src/app/backend/models/location.model';
 import { AuthService } from 'src/app/backend/services/auth.service';
 import { LocalStorageService } from 'src/app/backend/services/local-storage.service';
@@ -15,15 +17,16 @@ import { AboutContactComponent } from '../about-contact/about-contact.component'
   templateUrl: './side-nav.page.html',
   styleUrls: ['./side-nav.page.scss'],
 })
-export class SideNavPage implements OnInit {
+export class SideNavPage implements OnInit, OnDestroy {
 
   //#region  Fields
   expanded = false;
-  selectedLocation = this.storage.getObject('location');
+  selectedLocation: Location | undefined = this.storage.getObject('location') ?? undefined;
 
 
   private _settings: any;
   private _locations: Location[] | undefined;
+  private _destroy$ = new Subject<undefined>();
   //#endregion
 
 
@@ -51,7 +54,11 @@ export class SideNavPage implements OnInit {
     private storage: LocalStorageService,
     private locationsService: LocationsService,
     private messagingService: MessagingService
-  ) { }
+  ) {
+    this.messagingService.locationChange.pipe(
+      takeUntil(this._destroy$)
+    ).subscribe(_ => this.selectedLocation = this.storage.getObject('location'));
+  }
 
   //#endregion
 
@@ -105,5 +112,10 @@ export class SideNavPage implements OnInit {
 
   }
 
+
+  ngOnDestroy(): void {
+    this._destroy$.next(undefined);
+    this._destroy$.complete();
+  }
   //#endregion
 }
