@@ -1,0 +1,8 @@
+.post-detail {
+  padding: 0px 20px 20px 20px;
+}
+.comment {
+  &:not(:last-child) {
+    border-bottom: 1px solid var(--ion-color-medium);
+  }
+}

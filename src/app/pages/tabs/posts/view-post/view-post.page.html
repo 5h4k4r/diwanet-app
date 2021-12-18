@@ -1,0 +1,47 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="header-toolbar">
+    <ion-title>
+      <img src="/assets/images/brand/diwanet_logo_blue.png" class="image-title">
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu">
+        <ion-icon name="menu-outline"></ion-icon>
+      </ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ng-container *ngIf="post; else noResultFound">
+    <ion-card-header>
+      <ion-card-subtitle>{{ post.created_at | date }}</ion-card-subtitle>
+      <ion-card-title>{{ post?.service_category?.name }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content class="ion-no-padding">
+      <div class="post-detail">
+        {{ post?.detail }}
+      </div>
+      <ion-item-divider class="my-2">
+        <ion-label>Comments</ion-label>
+      </ion-item-divider>
+      <ion-row *ngFor="let comment of post.post_comment" lines="full" class="py-2 comment">
+        <ion-col size="2">
+          <img [src]="comment.service_man?.image" alt="" class="rounded-circle">
+        </ion-col>
+        <ion-col size="10" class="pe-2">
+          <h6>{{comment.service_man?.name}}</h6>
+          <p class="medium-color">{{comment.comment}}</p>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+
+  </ng-container>
+
+  <ng-template #noResultFound>
+
+    <div *ngIf="!loading" class="medium-color mt-5 d-flex align-items-center justify-content-center">
+      No results found
+    </div>
+
+  </ng-template>
+</ion-content>
