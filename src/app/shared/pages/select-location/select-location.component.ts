@@ -4,6 +4,7 @@ import { ModalController } from '@ionic/angular';
 import { Location } from 'src/app/backend/models/location.model';
 import { LocalStorageService } from 'src/app/backend/services/local-storage.service';
 import { LocationsService } from 'src/app/backend/services/locations.service';
+import { MessagingService } from '../../services/messaging.service';
 
 @Component({
   selector: 'app-select-location',
@@ -40,7 +41,8 @@ export class SelectLocationComponent implements OnInit {
   constructor(
     private locationsService: LocationsService,
     private storage: LocalStorageService,
-    private router: Router
+    private router: Router,
+    private messagingService: MessagingService,
   ) { }
 
 
@@ -59,6 +61,7 @@ export class SelectLocationComponent implements OnInit {
     if (!this._selectedLocation) return;
 
     this.storage.setObject('location', this._selectedLocation);
+    this.messagingService.locationChanged();
     this.router.navigateByUrl('/tabs/vip');
 
   }
