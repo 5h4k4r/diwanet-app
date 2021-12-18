@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: PostsPage
+  },
+  {
+    path: 'view-post',
+    loadChildren: () => import('./view-post/view-post.module').then(m => m.ViewPostPageModule)
   }
 ];
 
@@ -14,4 +18,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class PostsPageRoutingModule {}
+export class PostsPageRoutingModule { }

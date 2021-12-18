@@ -77,7 +77,7 @@ export class PostsPage implements OnInit, OnDestroy {
 
 
 
-        return this.postsService.getCustomerPosts({
+        return this.postsService.getPosts({
           page: this.pageNumber,
           limit: this.limit,
           location_id: this.location_id
