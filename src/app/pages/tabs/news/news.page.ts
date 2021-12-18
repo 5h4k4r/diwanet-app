@@ -7,6 +7,7 @@ import { News } from 'src/app/backend/models/news.model';
 import { LocalStorageService } from 'src/app/backend/services/local-storage.service';
 import { NewsService } from 'src/app/backend/services/news.service';
 import { TokenStoreService } from 'src/app/backend/services/token-store.service';
+import { UserProfileComponent } from 'src/app/shared/components/user-profile/user-profile.component';
 import { MessagingService } from 'src/app/shared/services/messaging.service';
 import { NewsAddComponent } from './components/news-add/news-add.component';
 import { NewsViewComponent } from './components/news-view/news-view.component';
@@ -131,6 +132,18 @@ export class NewsPage implements OnInit, OnDestroy {
     const modal = await this.modalController.create({
       component: NewsViewComponent,
       componentProps: { id }
+    });
+
+    await modal.present();
+
+  }
+  async openProfile(userId: number | undefined): Promise<void> {
+    if (!userId) return;
+    const modal = await this.modalController.create({
+      component: UserProfileComponent,
+      componentProps: { userId },
+      backdropDismiss: true,
+      swipeToClose: true,
     });
 
     await modal.present();
