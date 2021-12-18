@@ -13,12 +13,21 @@ export class PostsService {
   ) { }
 
 
-  getCustomerPosts(params?: {
+  getPosts(params?: {
     page?: number;
     limit?: number;
     location_id: number;
   }): Promise<Post[]> {
     return this.http.get<Post[]>(`${this.baseUrl}`, { params }).toPromise();
+  }
+
+  getSingle(params: {
+    location_id: number;
+    id: number;
+    phone?: string;
+    code?: string;
+  }): Promise<Post> {
+    return this.http.get<Post>(`${this.baseUrl}`, { params }).toPromise();
   }
 
   addPost(params: {

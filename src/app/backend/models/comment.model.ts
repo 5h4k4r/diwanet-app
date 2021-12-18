@@ -1,3 +1,5 @@
+import { ServiceMan } from './serviceman.model';
+
 /* eslint-disable @typescript-eslint/naming-convention */
 export interface Comment {
   id?: number;
@@ -5,4 +7,5 @@ export interface Comment {
   customer_post_id?: number;
   service_man_id?: number;
   created_at?: Date;
+  service_man?: ServiceMan;
 }
