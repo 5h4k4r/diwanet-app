@@ -9,7 +9,7 @@ export class RequestInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     // Only add authorization if we're calling our own apis
-    if (!request.url.startsWith('https://diwanet.com/api/'))
+    if (!request.url.startsWith('https://diwanet.com/public/api/'))
       return next.handle(request);
     // add authorization header with jwt token if available
     if (this.tokenStore.accessToken) {
