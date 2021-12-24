@@ -12,29 +12,9 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <google-map id="dashboardMap" width="100%" [center]="center" [zoom]="zoom" *ngIf="!loading; else progressSpinner">
-    <map-marker #marker="mapMarker" *ngFor="let markerPosition of markerPositions; let index = index"
-      [position]="markerPosition" [options]="markerOptions" (mapClick)="openInfoWindow(marker, infoWindow, index)">
-
-      <map-info-window #infoWindow="mapInfoWindow">
-
-        <div *ngIf="users && users[index]?.name">
-          <span class="text-hint">Service Man: </span>
-          <strong class="text-hint">
-            {{ users[index]?.name }}</strong>
-        </div>
-
-        <div *ngIf="users && users[index]?.phone">
-          <span class="text-hint">Call: </span>
-          <a [href]="'tel:' + users[index]?.phone">
-            {{ users[index]?.phone }}
-          </a>
-        </div>
-
-      </map-info-window>
-
-    </map-marker>
-  </google-map>
+  <div id="dashboardMap" [class]="isAndroid ? 'android-height' : 'ios-height'" *ngIf="!loading; else progressSpinner">
+    <app-user-on-map [users]="users"></app-user-on-map>
+  </div>
 </ion-content>
 <ng-template #progressSpinner>
   <ion-progress-bar color="primary" type="indeterminate"></ion-progress-bar>
