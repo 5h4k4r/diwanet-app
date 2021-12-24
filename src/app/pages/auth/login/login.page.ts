@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertService } from 'src/app/backend/services/alert.service';
-import { Platform } from '@ionic/angular';
 import { AuthService } from 'src/app/backend/services/auth.service';
 import { TokenStoreService } from 'src/app/backend/services/token-store.service';
 
