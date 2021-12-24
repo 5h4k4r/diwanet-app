@@ -2,8 +2,10 @@
   width: 80px;
 }
 .pins {
-  column-count: 3;
-  padding: 7px;
+  display: grid;
+  gap: 5px;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  grid-template-rows: masonry;
 }
 
 .pin {
