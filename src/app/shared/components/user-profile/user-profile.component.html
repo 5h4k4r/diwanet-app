@@ -8,13 +8,13 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" *ngIf="!loading">
   <div class="top-part">
 
     <ion-row>
       <ion-col size="12" class="text-center">
         <img src="/assets/images/mock/user.png" alt="" class="user-image">
-        <p class="mt-2 light-color">{{user?.name}}</p>
+        <p class="mt-2 light-color">{{ user?.name }} . <strong>{{ user?.category?.name }}</strong></p>
       </ion-col>
     </ion-row>
   </div>
@@ -26,6 +26,9 @@
     <ion-segment-button value="review">
       <ion-label>Reviews</ion-label>
     </ion-segment-button>
+    <ion-segment-button value="map" *ngIf="user?.lat && user?.long">
+      <ion-label>Map</ion-label>
+    </ion-segment-button>
   </ion-segment>
   <div [ngSwitch]="segmentValue">
     <ion-list *ngSwitchCase="'profile'">
@@ -35,6 +38,11 @@
         <p>{{ user?.location?.name }}</p>
       </div>
 
+      <div class="user-info" *ngIf="user?.address">
+        <label>Address</label>
+        <p>{{ user.address }}</p>
+      </div>
+
       <div class="user-info">
         <label>Price</label>
         <p>{{ user?.price }} per {{ user?.price_type }}</p>
@@ -42,7 +50,9 @@
 
       <div class="user-info">
         <label>Phone</label>
-        <p>{{ user?.phone }}</p>
+        <p>
+          <a [href]="'tel:'+user.phone">{{ user?.phone }}</a>
+        </p>
       </div>
 
       <div class="user-info" *ngIf="user?.facebook">
@@ -58,6 +68,12 @@
       <div class="user-info" *ngIf="user?.snapchat">
         <label>Snapchat</label>
         <a [href]="'snapchat.com/'+user?.snapchat">{{ user?.snapchat }}</a>
+      </div>
+
+
+      <div class="user-info" *ngIf="user?.about">
+        <label>About</label>
+        <div [innerHtml]="user.about"></div>
       </div>
 
 
@@ -91,6 +107,10 @@
         Post
       </ion-button>
     </ion-list>
+
+    <div class="map" *ngSwitchCase="'map'">
+      <app-user-on-map [users]="[user]"></app-user-on-map>
+    </div>
 
   </div>
 </ion-content>

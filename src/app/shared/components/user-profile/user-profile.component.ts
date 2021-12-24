@@ -20,12 +20,13 @@ export class UserProfileComponent implements OnInit {
   comment = '';
 
   private _reviews: Review[] = [];
-
+  private _loading = true;
   //#endregion
 
   //#region Properties
   get user(): ServiceMan { return this._user; }
   get reviews(): Review[] { return this._reviews; }
+  get loading(): boolean { return this._loading; }
   //#endregion
 
   //#region Constructor
@@ -50,13 +51,14 @@ export class UserProfileComponent implements OnInit {
   async getData(): Promise<void> {
     this.presentLoading();
     try {
+      this._loading = true;
       this._user = await this.usersService.getUserById({ id: this.userId });
       this._reviews = this.user.review;
     } catch (error) {
 
     }
     this.loadingController.dismiss();
-
+    this._loading = false;
   }
 
   segmentChanged(e: any): void {
