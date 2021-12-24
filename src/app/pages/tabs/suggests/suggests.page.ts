@@ -12,11 +12,11 @@ import { UserProfileComponent } from 'src/app/shared/components/user-profile/use
 import { MessagingService } from 'src/app/shared/services/messaging.service';
 
 @Component({
-  selector: 'app-vip',
-  templateUrl: './vip.page.html',
-  styleUrls: ['./vip.page.scss'],
+  selector: 'app-suggests',
+  templateUrl: './suggests.page.html',
+  styleUrls: ['./suggests.page.scss'],
 })
-export class VipPage implements OnInit, OnDestroy {
+export class SuggestsPage implements OnInit, OnDestroy {
   //#region Fields
   searchText = '';
   stars = 3;

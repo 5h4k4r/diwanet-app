@@ -50,7 +50,7 @@ export class LoginPage implements OnInit {
       password: new FormControl('', Validators.required)
     });
     // get return url from route parameters or default to '/dashboard-tabs'
-    this._returnUrl = this.route.snapshot.queryParams.returnUrl || '/tabs/vip';
+    this._returnUrl = this.route.snapshot.queryParams.returnUrl || '/tabs/suggests';
     await this.tokenStore.isReady$;
 
     if (this.tokenStore.accessToken) {

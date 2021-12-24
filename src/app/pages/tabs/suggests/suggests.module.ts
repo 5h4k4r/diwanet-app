@@ -4,10 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { VipPageRoutingModule } from './vip-routing.module';
+import { SuggestsPageRoutingModule } from './suggests-routing.module';
 
-import { VipPage } from './vip.page';
-import { NgxStarRatingModule } from 'ngx-star-rating';
+import { SuggestsPage } from './suggests.page';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
@@ -17,10 +16,10 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    VipPageRoutingModule,
+    SuggestsPageRoutingModule,
     SharedModule,
     InfiniteScrollModule,
   ],
-  declarations: [VipPage]
+  declarations: [SuggestsPage]
 })
-export class VipPageModule { }
+export class SuggestsPageModule { }

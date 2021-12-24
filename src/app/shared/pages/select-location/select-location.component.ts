@@ -62,7 +62,7 @@ export class SelectLocationComponent implements OnInit {
 
     this.storage.setObject('location', this._selectedLocation);
     this.messagingService.locationChanged();
-    this.router.navigateByUrl('/tabs/vip');
+    this.router.navigateByUrl('/tabs/suggests');
 
   }
 

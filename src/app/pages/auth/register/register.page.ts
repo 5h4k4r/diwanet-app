@@ -147,7 +147,7 @@ export class RegisterPage implements OnInit {
 
   //#region Private Functions
   private resolveRoute() {
-    this.router.navigate(['/tabs/vip']);
+    this.router.navigate(['/tabs/suggests']);
   }
 
   private async getLocations(): Promise<void> {

@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['tabs.page.scss']
 })
 export class TabsPage {
-  activeTab = 'vip';
+  activeTab = 'suggests';
   constructor() { }
 
   selectedTabChanged(event: { tab: string }): void {

@@ -8,8 +8,8 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'vip',
-        loadChildren: () => import('./vip/vip.module').then(m => m.VipPageModule)
+        path: 'suggests',
+        loadChildren: () => import('./suggests/suggests.module').then(m => m.SuggestsPageModule)
       },
       {
         path: 'categories',
@@ -29,14 +29,14 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/tabs/vip',
+        redirectTo: '/tabs/suggests',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/vip',
+    redirectTo: '/tabs/suggests',
     pathMatch: 'full'
   },
 ];
