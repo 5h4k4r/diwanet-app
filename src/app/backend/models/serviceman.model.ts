@@ -1,3 +1,4 @@
+import { Category } from './category.model';
 import { Review } from './review.model';
 import { User } from './user.model';
 
@@ -10,6 +11,7 @@ export interface ServiceMan extends User {
     id: number;
     name: string;
   };
+  category?: Category;
   service_cat_id?: number;
   image?: string;
   lat?: number;
