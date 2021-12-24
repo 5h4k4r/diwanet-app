@@ -4,7 +4,7 @@
       <ion-col size="4" class="d-flex align-items-center justify-content-center" style="background: rgb(2,0,36);
       background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(26,49,132,1) 0%, rgba(30,101,179,1) 100%);">
 
-        <div>
+        <div (click)="openProfile()">
           <img [src]="user?.image" class="serviceman-image">
           <strong class="mt-2 text-center d-block light-color">
             {{ user?.name }}
@@ -31,8 +31,9 @@
             </p>
           </ion-col>
           <ion-col size="12">
-            <ion-button color="primary" expand="block" (click)="openProfile()">
-              Open Profile
+
+            <ion-button color="success" expand="block" *ngIf="user?.phone" [href]="'tel:'+user.phone">
+              <span class="light-color">Click to Call</span>
             </ion-button>
 
           </ion-col>
