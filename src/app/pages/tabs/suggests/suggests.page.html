@@ -40,8 +40,12 @@
     </ion-text>
   </div>
   <ng-container *ngIf="users?.length">
+    <ion-row>
+      <ion-col size-xs="12" size-sm="12" size-md="6" size-lg="4" size-xl="3" *ngFor="let user of users">
+        <app-user-card-view [user]="user"></app-user-card-view>
 
-    <app-user-card-view *ngFor="let user of users" [user]="user"></app-user-card-view>
+      </ion-col>
+    </ion-row>
   </ng-container>
 
 
