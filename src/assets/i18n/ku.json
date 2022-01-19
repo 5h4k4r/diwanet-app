@@ -1,0 +1,125 @@
+{
+  "MAIN_NAV": {
+    "LOGIN": "چوونە ژوورەر",
+    "REGISTER": "خۆ تۆمارکردن",
+    "LOCATION": "شوێن",
+    "LANGUAGE": "زمان",
+    "ABOUT": "دەربارە",
+    "CONTACT": "پەیوەندی",
+    "LOGOUT": "چوونە دەرەوە"
+  },
+  "LANGS": {
+    "EN": "ئینگلیزی",
+    "AR": "عەرەبی",
+    "KU": "کوردی"
+  },
+  "LOGIN": {
+    "TITLE": "بەخێربێیت",
+    "SUBTITLE": "دیوانێت بەکاربهێنە بۆ ئەزموونێکی ئاسانتر.",
+    "USERNAME": "ناوی بەکارهێنەر",
+    "PASSWORD": "ووشەی نهێنی",
+    "SUBMIT_BTN": "چوونە ژوورەوە",
+    "ERROR_TEXT": "ناوی بەکارهێنەر هەڵەیە"
+  },
+  "SIGN_UP": {
+    "TITLE": "بەخێربێیت",
+    "SUBTITLE": "دیوانێت بەکاربهێنە بۆ ئەزموونێکی ئاسانتر.",
+    "NAME": "ناو",
+    "USERNAME": "ناوی بەکارهێنەر",
+    "PASSWORD": "ووشەی نهێنی",
+    "PHONE": "ژمارەی مۆبایل",
+    "EMAIL": "ئیمەیڵ",
+    "ABOUT": "دەربارە",
+    "CATEGORY": "بەش",
+    "PRICE": "نرخ",
+    "PRICE_TYPE": "جۆری نرخ",
+    "DAY": "رۆژ",
+    "HOUR": "کاتژمێر",
+    "COUNTRY": "وڵات",
+    "CITY": "شار",
+    "PROFILE_PIC": "وێنەی پرۆفایل",
+    "IMAGE": "وینە",
+    "FACEBOOK_LINK": "بەستەری فەیسبووک",
+    "INSTAGRAM_LINK": "بەستەری ئینستاگرام",
+    "SNAPCHAT_LINK": "بەستەری سناپچات",
+    "OPTIONAL": "ئارەزوومەندانە",
+    "SUBMIT_BTN": "خۆ تۆمارکردن",
+    "ERROR_TEXT": "هەڵەیەک هەیە"
+  },
+  "CATEGORIES": {
+    "SERVICE_MEN": "وەستاکان",
+    "NO_RESULT": "هیچ شتێک نەدۆزرایەوە بۆ"
+  },
+  "NEWS": {
+    "SEE_MORE": "زیاتر ببینە",
+    "NO_RESULT": "هیچ نەدۆزرایەوە"
+  },
+  "NEWS_ADD": {
+    "TITLE": "زیادکردنی هەواڵ",
+    "REQUIRED": "ئەم بەشە پێویستە",
+    "IMAGES": "وێنەکان"
+  },
+  "POSTS": {
+    "NO_RESULT": "هیچ نەدۆزرایەوە",
+    "ADD_COMMENT": "سەرنج زیاد بکە"
+  },
+  "POSTS_ADD": {
+    "TITLE": "زیادکردنی پۆست",
+    "REQUIRED": "ئەم بەشە پێویستە",
+    "NONE": "هیچ",
+    "NAME": "ناو",
+    "PHONE": "ژمارەی مۆبایل",
+    "CATEGORY": "بەش",
+    "COUNTRY": "وڵات",
+    "CITY": "شار",
+    "DESC": "باسکردن"
+  },
+  "VIEW_POST": {
+    "COMMENTS": "سەرنجەکان",
+    "NO_RESULT": "هیچ نەدۆزرایەوە"
+  },
+  "SUGGESTS": {
+    "NONE": "هیچ",
+    "SEARCH_RESULTS": "بگەڕێ بۆ",
+    "NO_RESULT": "هیچ نەدۆزرایەوە",
+    "SELECT_CATEGORY": "بەش دیاری بکە",
+    "FILTER_SERVICEMEN": "فلتەرکردنی وەستاکان"
+  },
+  "TABS": {
+    "SUGGESTS": "پێشنیازکراوەکان",
+    "CATEGORIES": "بەشەکان",
+    "NEWS": "هەواڵەکان",
+    "MAP": "نەخشە",
+    "POSTS": "پۆستەکان"
+  },
+  "USER_CARD_VIEW": {
+    "PER": "بۆ هەر",
+    "CLICK_TO_CALL": "پەیوەندی"
+  },
+  "USER_ON_MAP": {
+    "SERVICE_MAN": "وەستا:",
+    "CALL": "پەیوەندی:"
+  },
+  "USER_PROFILE": {
+    "PROFILE": "پرۆفایل",
+    "REVIEWS": "پیاچوونەوەکان",
+    "MAP": "نەخشە",
+    "PER": "بۆ هەر",
+    "LOCATION": "شوێن",
+    "ADDRESS": "ناونیشان",
+    "PRICE": "نرخ",
+    "PHONE": "مۆبایل",
+    "FACEBOOK": "فەیسبووک",
+    "INSTAGRAM": "ئینستاگرام",
+    "SNAPCHAT": "سناپچات",
+    "ABOUT": "دەربارە",
+    "LEAVE_A_REVIEW": "پیاچوونەوە بکە",
+    "WRITE_A_COMMENT": "سەرنجێک بنوسە",
+    "POST": "پۆست"
+  },
+  "SELECT_LOCATION": {
+    "SELECT_COUNTRY": "وڵاتێک دیاری بکە",
+    "SELECT_CITY": "شارێک دیاری بکە",
+    "ENTER": "دیاری کردن"
+  }
+}

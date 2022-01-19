@@ -1,7 +1,7 @@
 <ion-content [fullscreen]="true">
   <ion-header>
     <ion-toolbar>
-      <ion-title>Add News</ion-title>
+      <ion-title>{{ 'NEWS_ADD.TITLE' | translate }}</ion-title>
       <ion-buttons slot="start">
         <ion-button (click)="closeModal()" fill="clear">
           <ion-icon slot="icon-only" name="close-outline"></ion-icon>
@@ -22,7 +22,7 @@
     </ion-item>
 
     <ion-item lines="none" *ngIf="submitted && form?.controls.title?.errors?.required">
-      <p class="danger-color">This field is required</p>
+      <p class="danger-color"> {{ 'NEWS_ADD.REQUIRED' | translate }}</p>
 
     </ion-item>
     <ion-item lines="none">
@@ -31,12 +31,12 @@
     </ion-item>
     <ion-item lines="none" *ngIf="submitted && form?.controls.detail?.errors?.required">
 
-      <p class="danger-color">This field is required</p>
+      <p class="danger-color"> {{ 'NEWS_ADD.REQUIRED' | translate }}</p>
     </ion-item>
 
 
     <ion-button (click)="input.click()" expand="block" fill="clear">
-      {{ imageUrls?.length ? 'Change' : 'Upload'}} images
+      {{ imageUrls?.length ? 'Change' : 'Upload'}} {{ 'NEWS_ADD.IMAGES' | translate }}
     </ion-button>
 
     <ion-item style="overflow: auto;" lines="none" *ngIf="imageUrls?.length">
@@ -44,7 +44,7 @@
     </ion-item>
 
     <ion-button (click)="addNews()" expand="block" color="primary" type="submit">
-      Add News
+      {{ 'NEWS_ADD.TITLE' | translate }}
     </ion-button>
   </ng-container>
 

@@ -19,24 +19,24 @@
 
 
   <ion-item lines="none">
-    <ion-select [disabled]="loading" [value]="null" placeholder="Select Category"
+    <ion-select [disabled]="loading" [value]="null" [placeholder]="'SUGGESTS.SELECT_CATEGORY' | translate "
       (ionChange)="onSelectionChange($event)">
 
-      <ion-select-option [value]="null">None</ion-select-option>
+      <ion-select-option [value]="null"> {{ 'SUGGESTS.NONE' | translate }}</ion-select-option>
       <ion-select-option *ngFor="let cat of categories" [value]="cat.id">{{cat.name | titlecase}}</ion-select-option>
     </ion-select>
   </ion-item>
 
-  <ion-searchbar placeholder="Filter Servicemen" animated (ionChange)="onSearchChange($event)" inputmode="text"
-    mode="ios" type="text" [debounce]="250" [disabled]="loading"></ion-searchbar>
+  <ion-searchbar [placeholder]="'SUGGESTS.FILTER_SERVICEMEN' | translate " animated (ionChange)="onSearchChange($event)"
+    inputmode="text" mode="ios" type="text" [debounce]="250" [disabled]="loading"></ion-searchbar>
   <div class="my-2 text-center" *ngIf="searchText">
     <ion-text color="medium">
-      <span class="small-text">Search results for <strong>{{ searchText }}</strong></span>
+      <span class="small-text"> {{ 'SUGGESTS.SEARCH_RESULTS' | translate }} <strong>{{ searchText }}</strong></span>
     </ion-text>
   </div>
   <div class="my-2 text-center" *ngIf="!users?.length && !loading">
     <ion-text color="medium">
-      <span class="small-text">No Items found.</span>
+      <span class="small-text"> {{ 'SUGGESTS.NO_RESULT' | translate }}</span>
     </ion-text>
   </div>
   <ng-container *ngIf="users?.length">

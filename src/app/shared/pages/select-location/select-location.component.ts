@@ -16,8 +16,10 @@ export class SelectLocationComponent implements OnInit {
   //#region Fields
 
 
-  private _selectedLocation: Location | undefined;
-  private _locations: Location[] | undefined;
+  selectedCountry: Location | undefined;
+  selectedCity: Location | undefined;
+  private _countries: Location[] | undefined;
+  private _cities: Location[] | undefined;
   private _loading = false;
   private _hasError = false;
 
@@ -27,8 +29,8 @@ export class SelectLocationComponent implements OnInit {
 
 
   //#region Properties
-  get selectedLocation(): Location | undefined { return this._selectedLocation; }
-  get locations(): Location[] { return this._locations; }
+  get countries(): Location[] { return this._countries; }
+  get cities(): Location[] { return this._cities; }
   get loading(): boolean { return this._loading; }
   get hasError(): boolean { return this._hasError; }
   //#endregion
@@ -54,33 +56,51 @@ export class SelectLocationComponent implements OnInit {
 
 
   ngOnInit() {
-    this.getLocations();
+    this.listCountries();
   }
 
   selectLocation(): void {
-    if (!this._selectedLocation) return;
+    if (!this.selectedCity || !this.selectedCity) return;
 
-    this.storage.setObject('location', this._selectedLocation);
+    this.storage.setObject('location', this.selectedCity);
     this.messagingService.locationChanged();
     this.router.navigateByUrl('/tabs/suggests');
 
   }
 
-  selectionChanged(e: any): void {
+  countryChanged(e: any): void {
     const value = e.target?.value;
-    this._selectedLocation = value;
+    this.selectedCountry = value;
+    this.listCities(value.id);
+
+  }
+  cityChanged(e: any): void {
+    const value = e.target?.value;
+    this.selectedCity = value;
 
   }
   //#endregion
 
   //#region Private Functions
 
-  private async getLocations(): Promise<void> {
+  private async listCities(id: number): Promise<void> {
     this._loading = true;
     this._hasError = false;
 
     try {
-      this._locations = await this.locationsService.getLocations();
+      this._cities = await this.locationsService.listCities({ id });
+    } catch (error) {
+      this._hasError = true;
+
+    }
+    this._loading = false;
+  }
+  private async listCountries(): Promise<void> {
+    this._loading = true;
+    this._hasError = false;
+
+    try {
+      this._countries = await this.locationsService.listCountries();
     } catch (error) {
       this._hasError = true;
 

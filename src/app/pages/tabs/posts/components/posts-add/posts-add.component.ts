@@ -22,12 +22,15 @@ export class PostsAddComponent implements OnInit {
     name: [null, Validators.required],
     phone: [null, Validators.required],
     category_id: [null, Validators.required],
+    country_id: [null, Validators.required],
     location_id: [null, Validators.required],
     detail: [null, Validators.required]
   });
 
+  selectedCountry: Location | undefined;
   private _categories: Category[] | undefined;
-  private _locations: Location[] | undefined;
+  private _countries: Location[] | undefined;
+  private _cities: Location[] | undefined;
   private _submitted = false;
   private _hasError = false;
   private _loading = false;
@@ -35,7 +38,8 @@ export class PostsAddComponent implements OnInit {
 
 
   //#region Properties
-  get locations(): Location[] | undefined { return this._locations; }
+  get countries(): Location[] | undefined { return this._countries; }
+  get cities(): Location[] | undefined { return this._cities; }
   get categories(): Category[] | undefined { return this._categories; }
   get submitted(): boolean { return this._submitted; }
   get hasError(): boolean { return this._hasError; }
@@ -64,8 +68,8 @@ export class PostsAddComponent implements OnInit {
   //#region Functions
 
   ngOnInit() {
+    this.listCountries();
     this.getCategories();
-    this.getLocations();
   }
 
   async addPost(): Promise<void> {
@@ -91,6 +95,14 @@ export class PostsAddComponent implements OnInit {
 
   }
 
+  countryChanged(e: any): void {
+    const id = e.target?.value;
+    this.selectedCountry = id;
+    this.listCities(id);
+
+  }
+
+
   async getCategories(): Promise<void> {
     this._hasError = false;
     this._loading = true;
@@ -104,12 +116,12 @@ export class PostsAddComponent implements OnInit {
     this._loading = false;
   }
 
-  async getLocations(): Promise<void> {
+  async listCities(id: number): Promise<void> {
     this._hasError = false;
     this._loading = true;
     try {
 
-      this._locations = await this.locationsService.getLocations();
+      this._cities = await this.locationsService.listCities({ id });
 
     } catch (error) {
       this._hasError = true;
@@ -125,6 +137,17 @@ export class PostsAddComponent implements OnInit {
 
 
   //#region Private Functions
+  private async listCountries(): Promise<void> {
+    this._loading = true;
+    this._hasError = false;
+    try {
+      this._countries = await this.locationsService.listCountries();
+    } catch (error) {
+      this._hasError = true;
+
+    }
+    this._loading = false;
+  }
 
   //#endregion
 }

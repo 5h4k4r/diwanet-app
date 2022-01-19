@@ -75,7 +75,8 @@ export class CategoriesPage implements OnInit, OnDestroy {
         return this.usersService.listServiceMen({
           page: this.pageNumber,
           limit: this.limit,
-          location_id: this.location_id
+          location_id: this.location_id,
+          service_cat_id: this.selectedCategory.id
         });
       }),
       map(data => {

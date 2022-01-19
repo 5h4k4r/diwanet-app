@@ -39,7 +39,7 @@
           <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
         </ion-button>
       </ion-buttons>
-      <ion-title>{{selectedCategory.name}} Servicemen</ion-title>
+      <ion-title>{{selectedCategory.name}} {{ 'CATEGORIES.SERVICE_MEN' | translate }}</ion-title>
     </ion-toolbar>
     <ng-container *ngIf="users.length;else noResultFound" infiniteScroll [infiniteScrollDistance]="3"
       [infiniteScrollThrottle]="150" (scrolled)="onScroll()" [scrollWindow]="false">
@@ -57,7 +57,7 @@
   <ng-template #noResultFound>
 
     <div class="medium-color mt-5 d-flex align-items-center justify-content-center">
-      No results found for &nbsp;<strong>{{ selectedCategory.name }}</strong>
+      {{ 'CATEGORIES.NO_RESULT' | translate }} &nbsp;<strong>{{ selectedCategory.name }}</strong>
     </div>
 
   </ng-template>

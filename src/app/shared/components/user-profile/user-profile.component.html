@@ -21,58 +21,58 @@
   <!-- Default Segment -->
   <ion-segment (ionChange)="segmentChanged($event)" value="profile" mode="md">
     <ion-segment-button value="profile">
-      <ion-label>Profile</ion-label>
+      <ion-label>{{ 'USER_PROFILE.PROFILE' | translate }}</ion-label>
     </ion-segment-button>
     <ion-segment-button value="review">
-      <ion-label>Reviews</ion-label>
+      <ion-label>{{ 'USER_PROFILE.REVIEWS' | translate }}</ion-label>
     </ion-segment-button>
     <ion-segment-button value="map" *ngIf="user?.lat && user?.long">
-      <ion-label>Map</ion-label>
+      <ion-label>{{ 'USER_PROFILE.MAP' | translate }}</ion-label>
     </ion-segment-button>
   </ion-segment>
   <div [ngSwitch]="segmentValue">
     <ion-list *ngSwitchCase="'profile'">
 
-      <div class="user-info">
-        <label>Location</label>
+      <div class="user-info" *ngIf="user?.location?.name !== null">
+        <label>{{ 'USER_PROFILE.LOCATION' | translate }}</label>
         <p>{{ user?.location?.name }}</p>
       </div>
 
       <div class="user-info" *ngIf="user?.address">
-        <label>Address</label>
+        <label>{{ 'USER_PROFILE.ADDRESS' | translate }}</label>
         <p>{{ user.address }}</p>
       </div>
 
-      <div class="user-info">
-        <label>Price</label>
-        <p>{{ user?.price }} per {{ user?.price_type }}</p>
+      <div class="user-info" *ngIf="user?.price_type !== null && user?.price !== null">
+        <label>{{ 'USER_PROFILE.PRICE' | translate }}</label>
+        <p>{{ user?.price }} {{ 'USER_PROFILE.PER' | translate }} {{ user?.price_type }}</p>
       </div>
 
-      <div class="user-info">
-        <label>Phone</label>
+      <div class="user-info" *ngIf="user?.phone">
+        <label>{{ 'USER_PROFILE.PHONE' | translate }}</label>
         <p>
           <a [href]="'tel:'+user.phone">{{ user?.phone }}</a>
         </p>
       </div>
 
       <div class="user-info" *ngIf="user?.facebook">
-        <label>Facebook</label>
+        <label>{{ 'USER_PROFILE.FACEBOOK' | translate }}</label>
         <a [href]="'facebook.com/'+user?.facebook">{{ user?.facebook }}</a>
       </div>
 
       <div class="user-info" *ngIf="user?.instagram">
-        <label>Instagram</label>
+        <label>{{ 'USER_PROFILE.INSTAGRAM' | translate }}</label>
         <a [href]="'instagram.com/'+user?.instagram">{{ user?.instagram }}</a>
       </div>
 
       <div class="user-info" *ngIf="user?.snapchat">
-        <label>Snapchat</label>
+        <label>{{ 'USER_PROFILE.SNAPCHAT' | translate }}</label>
         <a [href]="'snapchat.com/'+user?.snapchat">{{ user?.snapchat }}</a>
       </div>
 
 
       <div class="user-info" *ngIf="user?.about">
-        <label>About</label>
+        <label>{{ 'USER_PROFILE.ABOUT' | translate }}</label>
         <div [innerHtml]="user.about"></div>
       </div>
 
@@ -93,7 +93,7 @@
         </div>
       </div>
       <ion-item-divider>
-        <ion-label>Leave a review</ion-label>
+        <ion-label>{{ 'USER_PROFILE.LEAVE_A_REVIEW' | translate }}</ion-label>
       </ion-item-divider>
       <ion-row class="light-bg">
         <ion-col size="12" class="d-flex justify-content-center">
@@ -101,10 +101,10 @@
         </ion-col>
       </ion-row>
       <ion-item lines="none">
-        <ion-textarea [(ngModel)]="comment" placeholder="Write a comment"></ion-textarea>
+        <ion-textarea [(ngModel)]="comment" [placeholder]="'USER_PROFILE.WRITE_A_COMMENT' | translate"></ion-textarea>
       </ion-item>
       <ion-button (click)="postReview()" expand="block" class="m-2">
-        Post
+        {{ 'USER_PROFILE.POST' | translate }}
       </ion-button>
     </ion-list>
 

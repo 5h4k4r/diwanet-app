@@ -11,42 +11,53 @@
       </ion-row>
     </ion-grid>
     <ion-item button detail="false" lines="none" (click)="navigate('/auth/login')" *ngIf="!accessToken?.length">
-      <ion-label>Login</ion-label>
+      <ion-label>{{ 'MAIN_NAV.LOGIN' | translate }}</ion-label>
     </ion-item>
     <ion-item button detail="false" lines="none" (click)="navigate('/auth/register')" *ngIf="!accessToken?.length">
-      <ion-label>Register</ion-label>
+      <ion-label>{{ 'MAIN_NAV.REGISTER' | translate }}</ion-label>
     </ion-item>
     <!-- Flags Item Start-->
-    <ion-item detail lines="none" (click)="expanded = !expanded"
-      [detailIcon]="expanded ? 'chevron-down-outline' : 'chevron-forward-outline'">
-      <ion-label>Location</ion-label>
+    <ion-item lines="none" (click)="changeLocation()">
+      <ion-label>{{ 'MAIN_NAV.LOCATION' | translate }}</ion-label>
     </ion-item>
-    <div *ngIf="selectedLocation" class="animated faster locations" [class.slideOutUp]="!expanded"
-      [class.slideInDown]="expanded">
-      <ion-item lines="none" expand="block" fill="clear" *ngFor="let location of locations"
-        (click)="selectLocation(location)" [class.active]="selectedLocation.id === location.id"
-        [class.deactive]="selectedLocation.id !== location.id">
+    <!-- Flags Item End -->
+    <ion-item button detail="true" lines="none" (click)="languageExpanded = !languageExpanded"
+      [detailIcon]="languageExpanded ? 'chevron-down-outline' : 'chevron-forward-outline'">
+      <ion-label>{{ 'MAIN_NAV.LANGUAGE' | translate}}</ion-label>
+    </ion-item>
 
-        {{location.name}}
+    <div class=" animated faster languages" [class.slideOutUp]="!languageExpanded"
+      [class.slideInDown]="languageExpanded">
+      <ion-item lines="none" expand="block" fill="clear" (click)="selectLanguage('en')"
+        [class.active]="selectedLang === 'en'" [class.deactive]="selectedLang !== 'en'">
+
+        {{ 'LANGS.EN' | translate }}
+
+      </ion-item>
+      <ion-item lines="none" expand="block" fill="clear" (click)="selectLanguage('ku')"
+        [class.active]="selectedLang === 'ku'" [class.deactive]="selectedLang !== 'ku'">
+
+        {{ 'LANGS.KU' | translate }}
+
+      </ion-item>
+      <ion-item lines="none" expand="block" fill="clear" (click)="selectLanguage('ar')"
+        [class.active]="selectedLang === 'ar'" [class.deactive]="selectedLang !== 'ar'">
+
+        {{ 'LANGS.AR' | translate }}
 
       </ion-item>
     </div>
-    <!-- Flags Item End -->
-    <ion-item button detail="false" lines="none">
-      <ion-label>Language</ion-label>
-    </ion-item>
-
 
     <ion-item button detail="false" lines="none" (click)="aboutModal()">
-      <ion-label>About</ion-label>
+      <ion-label> {{ 'MAIN_NAV.ABOUT' | translate }}</ion-label>
     </ion-item>
 
     <ion-item button detail="false" lines="none" (click)="contactModal()">
-      <ion-label>Contact</ion-label>
+      <ion-label>{{ 'MAIN_NAV.CONTACT' | translate }}</ion-label>
     </ion-item>
 
     <ion-item button detail="false" lines="none" color="danger" (click)="logout()" *ngIf="accessToken?.length;">
-      <ion-label>Logout</ion-label>
+      <ion-label>{{ 'MAIN_NAV.LOGOUT' | translate }}</ion-label>
     </ion-item>
 
 

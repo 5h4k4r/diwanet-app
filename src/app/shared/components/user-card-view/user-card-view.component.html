@@ -17,13 +17,14 @@
         <ion-row>
           <ion-col size="12">
             <p class="info">
-              <ion-icon name="cash-outline"></ion-icon> &nbsp; {{user?.price}} per {{user?.price_type}}
+              <ion-icon name="cash-outline"></ion-icon> &nbsp; {{user?.price}} {{ 'USER_CARD_VIEW.PER' | translate }}
+              {{user?.price_type}}
             </p>
             <p class="info">
               <ion-icon name="call-outline"></ion-icon> &nbsp; {{user?.phone}}
             </p>
             <p class="info">
-              <ion-icon name="pricetag-outline"></ion-icon> &nbsp; IT
+              <ion-icon name="pricetag-outline"></ion-icon> &nbsp; {{ user?.category?.name }}
             </p>
             <p>
               <app-rating-stars [stars]="user?.avg_rating[0]?.rating" [disabled]="true"></app-rating-stars>
@@ -33,7 +34,7 @@
           <ion-col size="12">
 
             <ion-button color="success" expand="block" *ngIf="user?.phone" [href]="'tel:'+user.phone">
-              <span class="light-color">Click to Call</span>
+              <span class="light-color">{{ 'USER_CARD_VIEW.CLICK_TO_CALL' | translate }}</span>
             </ion-button>
 
           </ion-col>

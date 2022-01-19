@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { ServiceMan } from 'src/app/backend/models/serviceman.model';
+import { LocalStorageService } from 'src/app/backend/services/local-storage.service';
 import { UsersService } from 'src/app/backend/services/users.service';
 
 @Component({
@@ -23,6 +25,9 @@ export class MapPage implements OnInit {
   get loading(): boolean { return this._loading; }
   get hasError(): boolean { return this._hasError; }
   get users(): ServiceMan[] { return this._users; }
+
+  get location_id(): number { return this.storage.getObject('location')?.id ?? undefined; }
+
   //#endregion
 
 
@@ -31,7 +36,8 @@ export class MapPage implements OnInit {
 
   constructor(
     private usersService: UsersService,
-    private platform: Platform
+    private platform: Platform,
+    private storage: LocalStorageService,
   ) { }
 
   //#endregion
@@ -50,7 +56,9 @@ export class MapPage implements OnInit {
 
       this._loading = true;
 
-      this._users = await this.usersService.listServiceMen();
+      this._users = await this.usersService.listServiceMen({
+        location_id: this.location_id
+      });
       this._users = this.users.filter(i => i.lat && i.long);
 
     } catch (error) {

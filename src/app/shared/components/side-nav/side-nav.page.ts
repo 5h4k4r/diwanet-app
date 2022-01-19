@@ -1,14 +1,17 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController, ModalController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { Language } from 'src/app/backend/models/language.model';
 import { Location } from 'src/app/backend/models/location.model';
 import { AuthService } from 'src/app/backend/services/auth.service';
 import { LocalStorageService } from 'src/app/backend/services/local-storage.service';
 import { LocationsService } from 'src/app/backend/services/locations.service';
 import { SettingsService } from 'src/app/backend/services/settings.service';
 import { TokenStoreService } from 'src/app/backend/services/token-store.service';
+import { SelectLocationComponent } from '../../pages/select-location/select-location.component';
 import { MessagingService } from '../../services/messaging.service';
 import { AboutContactComponent } from '../about-contact/about-contact.component';
 
@@ -21,7 +24,10 @@ export class SideNavPage implements OnInit, OnDestroy {
 
   //#region  Fields
   expanded = false;
+  languageExpanded = false;
   selectedLocation: Location | undefined = this.storage.getObject('location') ?? undefined;
+  selectedLang: Language | undefined = this.storage.getString('lang') as Language ?? undefined;
+
 
 
   private _settings: any;
@@ -53,7 +59,8 @@ export class SideNavPage implements OnInit, OnDestroy {
     private authService: AuthService,
     private storage: LocalStorageService,
     private locationsService: LocationsService,
-    private messagingService: MessagingService
+    private messagingService: MessagingService,
+    private translate: TranslateService
   ) {
     this.messagingService.locationChange.pipe(
       takeUntil(this._destroy$)
@@ -67,18 +74,19 @@ export class SideNavPage implements OnInit, OnDestroy {
   async ngOnInit(): Promise<void> {
     await this.tokenStore.isReady$;
     this._settings = await this.settingsService.getSettings();
-    this._locations = await this.locationsService.getLocations();
   }
-
+  async changeLocation() {
+    this.router.navigateByUrl('/location');
+    this.menuController.close('main-menu');
+  }
   async navigate(url: string): Promise<void> {
     await this.router.navigateByUrl(url);
     this.menuController.close('main-menu');
   }
 
-  selectLocation(location: Location): void {
-    this.storage.setObject('location', location);
-    this.selectedLocation = location;
-    this.messagingService.locationChanged();
+  selectLanguage(lang: Language): void {
+    this.storage.setObject('lang', lang);
+    this.translate.use(lang);
   }
 
   async aboutModal(): Promise<void> {

@@ -9,6 +9,7 @@ import { SuggestsPageRoutingModule } from './suggests-routing.module';
 import { SuggestsPage } from './suggests.page';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { TranslationModule } from 'src/app/translation.module';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     SuggestsPageRoutingModule,
     SharedModule,
     InfiniteScrollModule,
+    TranslationModule,
   ],
   declarations: [SuggestsPage]
 })

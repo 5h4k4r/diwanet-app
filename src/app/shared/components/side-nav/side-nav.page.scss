@@ -52,6 +52,20 @@ ion-item:not(.flags, .locations ion-item, ion-item:first-child) {
   }
 }
 
+ion-item:not(.flags, .languages ion-item, ion-item:first-child) {
+  border-top: 2px solid #c8c7cc;
+}
+
+.languages {
+  z-index: -1;
+  display: block;
+  ion-item {
+    --background: transparent;
+    font-size: small;
+    --min-height: 30px;
+  }
+}
+
 .slideOutUp {
   opacity: 0;
   height: 0px;

@@ -22,7 +22,7 @@
         {{ post?.detail }}
       </div>
       <ion-item-divider class="my-2">
-        <ion-label>Comments</ion-label>
+        <ion-label> {{ 'VIEW_POST.COMMENTS' | translate }}</ion-label>
       </ion-item-divider>
       <ion-row *ngFor="let comment of post.post_comment" lines="full" class="py-2 comment">
         <ion-col size="2">
@@ -40,7 +40,7 @@
   <ng-template #noResultFound>
 
     <div *ngIf="!loading" class="medium-color mt-5 d-flex align-items-center justify-content-center">
-      No results found
+      {{ 'VIEW_POST.NO_RESULT' | translate }}
     </div>
 
   </ng-template>

@@ -8,7 +8,9 @@ import { RatingStarsComponent } from './components/rating-stars/rating-stars.com
 import { UserOnMapComponent } from './components/user-on-map/user-on-map.component';
 import { UserCardViewComponent } from './components/user-card-view/user-card-view.component';
 import { ImagePreviewComponent } from './components/image-preview/image-preview.component';
-import { AboutContactComponent } from './components/about-contact/about-contact.component'; import { GoogleMapsModule } from '@angular/google-maps';
+import { AboutContactComponent } from './components/about-contact/about-contact.component';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { TranslateModule } from '@ngx-translate/core';
 ;
 
 const components = [
@@ -28,7 +30,8 @@ const components = [
     FormsModule,
     ReactiveFormsModule,
     NgxStarRatingModule,
-    GoogleMapsModule
+    GoogleMapsModule,
+    TranslateModule,
   ],
   exports: [...components]
 })

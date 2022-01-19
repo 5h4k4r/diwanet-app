@@ -42,8 +42,7 @@
         </div>
         <div class="mt-2">
           <ion-button (click)="openNews(item.id)" expand="block" color="light" fill="outline" size="medium">
-            See more
-          </ion-button>
+            {{ 'NEWS.SEE_MORE' | translate }} </ion-button>
         </div>
       </div>
     </section>
@@ -60,7 +59,7 @@
 <ng-template #noResultFound>
 
   <div *ngIf="!loading" class="medium-color mt-5 d-flex align-items-center justify-content-center">
-    No results found
+    {{ 'NEWS.NO_RESULT' | translate }}
   </div>
 
 </ng-template>

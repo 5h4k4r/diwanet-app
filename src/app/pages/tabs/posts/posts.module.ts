@@ -9,6 +9,7 @@ import { PostsPageRoutingModule } from './posts-routing.module';
 import { PostsPage } from './posts.page';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { PostsAddComponent } from './components/posts-add/posts-add.component';
+import { TranslationModule } from 'src/app/translation.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { PostsAddComponent } from './components/posts-add/posts-add.component';
     ReactiveFormsModule,
     IonicModule,
     PostsPageRoutingModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    TranslationModule,
   ],
   declarations: [PostsPage, PostsAddComponent]
 })

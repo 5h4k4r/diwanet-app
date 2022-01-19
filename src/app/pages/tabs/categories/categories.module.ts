@@ -9,6 +9,7 @@ import { CategoriesPageRoutingModule } from './categories-routing.module';
 import { CategoriesPage } from './categories.page';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { TranslationModule } from 'src/app/translation.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,9 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     IonicModule,
     CategoriesPageRoutingModule,
     SharedModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    TranslationModule,
+
   ],
   declarations: [CategoriesPage]
 })

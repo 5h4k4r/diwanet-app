@@ -5,13 +5,13 @@
     <map-info-window #infoWindow="mapInfoWindow">
 
       <div *ngIf="users && users[index]?.name">
-        <span class="text-hint">Service Man: </span>
+        <span class="text-hint">{{ 'USER_ON_MAP.SERVICE_MAN' | translate }}</span>
         <strong class="text-hint">
           {{ users[index]?.name }}</strong>
       </div>
 
       <div *ngIf="users && users[index]?.phone">
-        <span class="text-hint">Call: </span>
+        <span class="text-hint">{{ 'USER_ON_MAP.CALL' | translate }} </span>
         <a [href]="'tel:' + users[index]?.phone">
           {{ users[index]?.phone }}
         </a>

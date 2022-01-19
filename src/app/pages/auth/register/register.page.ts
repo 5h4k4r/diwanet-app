@@ -21,12 +21,13 @@ export class RegisterPage implements OnInit {
   base64textString: string | undefined;
   imageUrl: string | ArrayBuffer | undefined;
   imageInput: any;
-
+  selectedCountry: Location | undefined;
   ngForm = this.fb.group({
     name: ['name', Validators.required],
     password: ['1q2w3e', Validators.required],
     phone: ['123123', Validators.required],
     category_id: [1, Validators.required],
+    country_id: [2, Validators.required],
     location_id: [2, Validators.required],
     price: [123, Validators.required],
     price_type: ['hour', Validators.required],
@@ -46,7 +47,8 @@ export class RegisterPage implements OnInit {
   private _errorMassage = '';
   private _submitted = false;
   private _categories: Category[] | undefined;
-  private _locations: Location[] | undefined;
+  private _citites: Location[] | undefined;
+  private _countries: Location[] | undefined;
   //#endregion
 
   //#region Properties
@@ -54,7 +56,9 @@ export class RegisterPage implements OnInit {
   get error() { return this._errorMassage; }
   get submitted() { return this._submitted; }
   get categories(): Category[] { return this._categories; }
-  get locations(): Location[] { return this._locations; }
+  get cities(): Location[] { return this._citites; }
+  get countries(): Location[] { return this._countries; }
+
   //#endregion
 
   //#region Constructor
@@ -73,7 +77,7 @@ export class RegisterPage implements OnInit {
 
   //#region Funtions
   async ngOnInit(): Promise<void> {
-    await this.getLocations();
+    this.listCountries();
     await this.getCategories();
 
   }
@@ -143,21 +147,30 @@ export class RegisterPage implements OnInit {
       this.passwordIcon = 'eye-off-outline';
     }
   }
+  countryChanged(e: any): void {
+    const id = e.target?.value;
+    this.selectedCountry = id;
+    this.listCities(id);
+
+  }
+
+
+  async listCities(id: number): Promise<void> {
+    try {
+      this._loading = true;
+      this._citites = await this.locationsService.listCities({
+        id
+      });
+    } catch (error) {
+
+    }
+    this._loading = false;
+  }
   //#endregion
 
   //#region Private Functions
   private resolveRoute() {
     this.router.navigate(['/tabs/suggests']);
-  }
-
-  private async getLocations(): Promise<void> {
-    try {
-      this._loading = true;
-      this._locations = await this.locationsService.getLocations();
-    } catch (error) {
-
-    }
-    this._loading = false;
   }
 
   private async getCategories(): Promise<void> {
@@ -174,6 +187,15 @@ export class RegisterPage implements OnInit {
 
     const base64String = 'data:image/png;base64,' + btoa(readerEvt.target.result);
     this.base64textString = base64String;
+  }
+  private async listCountries(): Promise<void> {
+    this._loading = true;
+    try {
+      this._countries = await this.locationsService.listCountries();
+    } catch (error) {
+
+    }
+    this._loading = false;
   }
 
 

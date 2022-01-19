@@ -7,10 +7,20 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgxStarRatingModule } from 'ngx-star-rating';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SideNavPageModule } from './shared/components/side-nav/side-nav.module';
 import { RequestInterceptor } from './interceptors/request.interceptor';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+
+
+// eslint-disable-next-line @typescript-eslint/naming-convention, prefer-arrow/prefer-arrow-functions
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -20,7 +30,14 @@ import { LocationStrategy, PathLocationStrategy } from '@angular/common';
     AppRoutingModule,
     SideNavPageModule,
     NgxStarRatingModule,
-    HttpClientModule
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

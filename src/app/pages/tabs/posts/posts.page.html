@@ -30,7 +30,7 @@
       </ion-card-content>
       <div class="comment-section" *ngIf="accessToken">
         <div class="first-column">
-          <ion-input #input type="text" placeholder="Add a comment" class="m-0"></ion-input>
+          <ion-input #input type="text" [placeholder]=" 'POSTS.ADD_COMMENT' | translate " class="m-0"></ion-input>
         </div>
         <div class="second-column">
           <ion-button (click)="addComment(item?.id, input)" fill="clear">
@@ -44,7 +44,7 @@
   <ng-template #noResultFound>
 
     <div *ngIf="!loading" class="medium-color mt-5 d-flex align-items-center justify-content-center">
-      No results found
+      {{ 'POSTS.NO_RESULT' | translate }}
     </div>
 
   </ng-template>

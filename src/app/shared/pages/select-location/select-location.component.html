@@ -2,21 +2,37 @@
   <div class="d-flex align-items-center justify-content-center h-100" *ngIf="!loading; else loadingProgress">
     <div class="w-100 mx-5">
       <ion-item class="my-2" lines="none">
-        <ion-label>Select your City</ion-label>
+        <ion-label>{{ 'SELECT_LOCATION.SELECT_COUNTRY' | translate }}</ion-label>
+      </ion-item>
+
+      <ion-item class="my-2" lines="none">
+        <ion-icon slot="start" size="large" name="map-outline"></ion-icon>
+        <ion-select placeholder="{{ 'SELECT_LOCATION.SELECT_COUNTRY' | translate }}"
+          (ionChange)="countryChanged($event)" [(ngModel)]="selectedCountry">
+          <ion-select-option *ngFor="let country of countries" [value]="country">
+            {{country.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item class="my-2" lines="none">
+        <ion-label>{{ 'SELECT_LOCATION.SELECT_CITY' | translate }}</ion-label>
       </ion-item>
 
       <ion-item class="my-2" lines="none">
         <ion-icon slot="start" size="large" name="location-outline"></ion-icon>
-        <ion-select placeholder="Select Location" (ionChange)="selectionChanged($event)">
-          <ion-select-option *ngFor="let location of locations" [value]="location">
-            {{location.name}}
+        <ion-select placeholder="{{ 'SELECT_LOCATION.SELECT_CITY' | translate }}" (ionChange)="cityChanged($event)"
+          [(ngModel)]="selectedCity">
+          <ion-select-option *ngFor="let city of cities" [value]="city">
+            {{city.name}}
           </ion-select-option>
         </ion-select>
       </ion-item>
 
 
-      <ion-button class="my-2" (click)="selectLocation()" color="primary" expand="block">
-        Enter
+      <ion-button class="my-2" (click)="selectLocation()" color="primary" expand="block"
+        [disabled]="!selectedCountry || !selectedCity">
+        {{ 'SELECT_LOCATION.ENTER' | translate }}
       </ion-button>
 
 

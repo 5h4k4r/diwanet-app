@@ -1,0 +1,125 @@
+{
+  "MAIN_NAV": {
+    "LOGIN": "Login",
+    "REGISTER": "Resgister",
+    "LOCATION": "Location",
+    "LANGUAGE": "Language",
+    "ABOUT": "About",
+    "CONTACT": "Contact",
+    "LOGOUT": "Logout"
+  },
+  "LANGS": {
+    "EN": "English",
+    "AR": "Arabic",
+    "KU": "Kurdish"
+  },
+  "LOGIN": {
+    "TITLE": "Welcome",
+    "SUBTITLE": "Start using Diwanet for a better experience.",
+    "USERNAME": "Username",
+    "PASSWORD": "Password",
+    "SUBMIT_BTN": "Sign in",
+    "ERROR_TEXT": "Invalid Username or Password"
+  },
+  "SIGN_UP": {
+    "TITLE": "Welcome",
+    "SUBTITLE": "Start using Diwanet for a better experience.",
+    "NAME": "Name",
+    "USERNAME": "Username",
+    "PASSWORD": "Password",
+    "PHONE": "Phone",
+    "EMAIL": "Email",
+    "ABOUT": "About",
+    "CATEGORY": "Category",
+    "PRICE": "Price",
+    "PRICE_TYPE": "Price Type",
+    "DAY": "Day",
+    "HOUR": "Hour",
+    "COUNTRY": "Country",
+    "CITY": "City",
+    "PROFILE_PIC": "Profile Picture",
+    "IMAGE": "image",
+    "FACEBOOK_LINK": "Facebook Link",
+    "INSTAGRAM_LINK": "Instagram Link",
+    "SNAPCHAT_LINK": "Snapchat Link",
+    "OPTIONAL": "Optional",
+    "SUBMIT_BTN": "Register",
+    "ERROR_TEXT": "Something is Wrong"
+  },
+  "CATEGORIES": {
+    "SERVICE_MEN": "Servicemen",
+    "NO_RESULT": "No results found for"
+  },
+  "NEWS": {
+    "SEE_MORE": "See more",
+    "NO_RESULT": "No results found"
+  },
+  "NEWS_ADD": {
+    "TITLE": "Add News",
+    "REQUIRED": "This field is required",
+    "IMAGES": "images"
+  },
+  "POSTS": {
+    "NO_RESULT": "No results found",
+    "ADD_COMMENT": "Add a comment"
+  },
+  "POSTS_ADD": {
+    "TITLE": "Add Post",
+    "REQUIRED": "This field is required",
+    "NONE": "NONE",
+    "NAME": "Enter name",
+    "PHONE": "Enter phone",
+    "CATEGORY": "Select Category",
+    "COUNTRY": "Select Country",
+    "CITY": "Select City",
+    "DESC": "Enter post description"
+  },
+  "VIEW_POST": {
+    "COMMENTS": "Comments",
+    "NO_RESULT": "No results found"
+  },
+  "SUGGESTS": {
+    "NONE": "None",
+    "SEARCH_RESULTS": "Search results for",
+    "NO_RESULT": "No Items found",
+    "SELECT_CATEGORY": "Select category",
+    "FILTER_SERVICEMEN": "Filter Servicemen"
+  },
+  "TABS": {
+    "SUGGESTS": "Suggests",
+    "CATEGORIES": "Categories",
+    "NEWS": "News",
+    "MAP": "Map",
+    "POSTS": "Posts"
+  },
+  "USER_CARD_VIEW": {
+    "PER": "per",
+    "CLICK_TO_CALL": "Click to Call"
+  },
+  "USER_ON_MAP": {
+    "SERVICE_MAN": "Service Man:",
+    "CALL": "Call:"
+  },
+  "USER_PROFILE": {
+    "PROFILE": "Profile",
+    "REVIEWS": "Reviews",
+    "MAP": "Map",
+    "PER": "per",
+    "LOCATION": "Location",
+    "ADDRESS": "Address",
+    "PRICE": "Price",
+    "PHONE": "Phone",
+    "FACEBOOK": "Facebook",
+    "INSTAGRAM": "Instagram",
+    "SNAPCHAT": "Snapchat",
+    "ABOUT": "About",
+    "LEAVE_A_REVIEW": "Leave a review",
+    "WRITE_A_COMMENT": "Write a comment",
+    "POST": "Post"
+  },
+  "SELECT_LOCATION": {
+    "SELECT_COUNTRY": "Select Country",
+    "SELECT_CITY": "Select City",
+    "ENTER": "Enter"
+  }
+}
