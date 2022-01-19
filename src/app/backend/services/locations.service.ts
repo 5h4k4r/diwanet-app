@@ -6,14 +6,20 @@ import { Location } from 'src/app/backend/models/location.model';
   providedIn: 'root'
 })
 export class LocationsService {
-  baseUrl = 'https://diwanet.com/public/api/locations';
+  baseUrl = 'https://diwanet.com/public/api/countries';
 
   constructor(
     private http: HttpClient
   ) { }
 
 
-  getLocations(): Promise<Location[]> {
+  listCities(params: {
+    id: number;
+  }): Promise<Location[]> {
+    return this.http.get<Location[]>(`${this.baseUrl}/${params.id}`).toPromise();
+  }
+
+  listCountries(): Promise<Location[]> {
     return this.http.get<Location[]>(this.baseUrl).toPromise();
   }
 }
