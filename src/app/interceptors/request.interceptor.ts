@@ -2,9 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TokenStoreService } from '../backend/services/token-store.service';
+import { TranslateService } from '@ngx-translate/core';
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
-  constructor(private tokenStore: TokenStoreService) { }
+  constructor(
+    private tokenStore: TokenStoreService,
+    private translate: TranslateService,
+  ) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
@@ -20,6 +24,17 @@ export class RequestInterceptor implements HttpInterceptor {
       });
     }
 
+    let lang = this.translate.currentLang;
+    if (lang) {
+      lang = lang.replace(/['"]+/g, '');
+      request = request.clone({
+        setHeaders: {
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          'Accept-Language': lang,
+        },
+      });
+
+    }
     return next.handle(request);
   }
 }
