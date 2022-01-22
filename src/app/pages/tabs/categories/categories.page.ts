@@ -116,6 +116,7 @@ export class CategoriesPage implements OnInit, OnDestroy {
   async selectCategory(cat: Category): Promise<void> {
     this._loading = true;
     this._selectedCategory = cat;
+    this._users = [];
     this.listServiceMen();
   }
 
