@@ -1,12 +1,11 @@
-<ion-header>
-  <ion-buttons slot="start">
-    <ion-button (click)="closeModal()" fill="clear">
-      <ion-icon slot="icon-only" name="close-outline"></ion-icon>
-    </ion-button>
-  </ion-buttons>
-
-</ion-header>
 <ion-content [fullscreen]="true">
+  <ion-toolbar class="ion-no-shadow ion-no-border bg-transparent">
+    <ion-buttons slot="start">
+      <ion-button (click)="closeModal()" fill="clear">
+        <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
   <section *ngIf="news;else loadingProgress">
     <div class="d-flex align-items-center">
       <img *ngIf="news?.service_man?.image" [src]="news?.service_man?.image" class="profile-image me-1">
