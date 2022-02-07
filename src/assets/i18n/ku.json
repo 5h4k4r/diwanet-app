@@ -57,7 +57,12 @@
   "NEWS_ADD": {
     "TITLE": "زیادکردنی هەواڵ",
     "REQUIRED": "ئەم بەشە پێویستە",
-    "IMAGES": "وێنەکان"
+    "TITLE_INPUT": "ناونیشان",
+    "DESC_INPUT": "زانیاری زیاتر داخڵبکە",
+    "CHANGE_IMAGES": "وێنەکان بگۆڕە",
+    "UPLOAD_IMAGES": "وێنە دابنێ",
+    "CHANGE_VIDEO": "ڤیدیۆکان بگۆڕە",
+    "UPLOAD_VIDEO": "ڤیدیۆ دابنێ"
   },
   "POSTS": {
     "NO_RESULT": "هیچ نەدۆزرایەوە",

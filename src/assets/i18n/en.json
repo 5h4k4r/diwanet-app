@@ -57,7 +57,12 @@
   "NEWS_ADD": {
     "TITLE": "Add News",
     "REQUIRED": "This field is required",
-    "IMAGES": "images"
+    "TITLE_INPUT": "Enter title",
+    "DESC_INPUT": "Enter Description",
+    "CHANGE_IMAGES": "Change Images",
+    "UPLOAD_IMAGES": "Upload Images",
+    "CHANGE_VIDEO": "Change Video",
+    "UPLOAD_VIDEO": "Upload Video"
   },
   "POSTS": {
     "NO_RESULT": "No results found",
