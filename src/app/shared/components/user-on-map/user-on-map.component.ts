@@ -49,7 +49,6 @@ export class UserOnMapComponent implements OnInit {
 
   ngOnInit(): void {
     this.initMap();
-    console.log(this.addresses);
 
   }
 
