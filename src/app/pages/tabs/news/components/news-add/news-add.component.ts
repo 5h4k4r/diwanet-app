@@ -13,9 +13,14 @@ import { ImagePreviewComponent } from 'src/app/shared/components/image-preview/i
 export class NewsAddComponent implements OnInit {
   //#region Fields
   base64textString: string[] = [];
+  imageFiles: File[];
   imageInput: any;
-  imageUrls: any[] | undefined = [];
+  imageUrls: any[] | undefined;
+  videoFile: any;
+  videoInput: any;
+  videoUrl: any | undefined;
   form = this.fb.group({
+    video: [null],
     images: [null],
     title: [null, Validators.required],
     detail: [null, Validators.required]
@@ -56,21 +61,30 @@ export class NewsAddComponent implements OnInit {
   ngOnInit() { }
 
   async addNews(): Promise<void> {
+
+    const form = this.form.value;
+
+    const formData = new FormData();
+
+    formData.append('video', this.videoFile as File);
+    // eslint-disable-next-line @typescript-eslint/prefer-for-of
+    for (let i = 0; i < this.imageFiles.length; i++) {
+      formData.append('images[]', this.imageFiles[i]);
+    }
+    formData.append('title', form.title as string);
+    formData.append('detail', form.detail as string);
+
     this._submitted = true;
     if (!this.form.valid) return;
 
     this._loading = true;
     this._hasError = false;
 
-    const form = this.form.value;
 
     try {
 
-      const news = await this.newsService.addNews({
-        title: form.title,
-        detail: form.detail,
-        images: this.base64textString
-      });
+      const news = await this.newsService.addNews(formData);
+
       this.closeModal(news);
     } catch (error) {
 
@@ -82,10 +96,11 @@ export class NewsAddComponent implements OnInit {
 
   }
 
-  processFile(imageInput: any): void {
+  processImage(imageInput: any): void {
 
     this.base64textString = [];
     const files: File[] = imageInput.files;
+    this.imageFiles = files;
     this.imageUrls = [];
     for (const file of files) {
 
@@ -100,9 +115,18 @@ export class NewsAddComponent implements OnInit {
 
       // this.imageInput = null;
     }
+
     // Create form data
 
     // Store form name as "file" with file data
+  }
+  processVideo(videoInput: any): void {
+
+    this.videoFile = videoInput.files[0];
+
+    const urlReader = new FileReader();
+    urlReader.readAsDataURL(this.videoFile);
+    urlReader.onload = (event) => this.videoUrl = event?.target?.result;
   }
   async openImage(image): Promise<void> {
     const modal = await this.modalController.create({

@@ -11,14 +11,19 @@
   </ion-header>
 
 
+  <input #videoInputTemplate [(ngModel)]="videoInput" type="file" class="d-none" accept="video/*"
+    (change)="processVideo(videoInputTemplate)">
+
+
   <input #input [(ngModel)]="imageInput" type="file" class="d-none" id="fileUploader" accept="image/*" multiple
-    (change)="processFile(input)">
+    (change)="processImage(input)">
 
   <ng-container [formGroup]="form">
 
     <ion-item lines="none">
 
-      <ion-input formControlName="title" type="text" placeholder="Enter title" class="width-100"></ion-input>
+      <ion-input formControlName="title" type="text" [placeholder]="'NEWS_ADD.TITLE_INPUT' | translate"
+        class="width-100"></ion-input>
     </ion-item>
 
     <ion-item lines="none" *ngIf="submitted && form?.controls.title?.errors?.required">
@@ -27,7 +32,8 @@
     </ion-item>
     <ion-item lines="none">
 
-      <ion-textarea formControlName="detail" placeholder="Enter news description" class="width-100"></ion-textarea>
+      <ion-textarea formControlName="detail" [placeholder]="'NEWS_ADD.DESC_INPUT' | translate" class="width-100">
+      </ion-textarea>
     </ion-item>
     <ion-item lines="none" *ngIf="submitted && form?.controls.detail?.errors?.required">
 
@@ -36,13 +42,19 @@
 
 
     <ion-button (click)="input.click()" expand="block" fill="clear">
-      {{ imageUrls?.length ? 'Change' : 'Upload'}} {{ 'NEWS_ADD.IMAGES' | translate }}
+      {{ imageUrls?.length ? ('NEWS_ADD.CHANGE_IMAGES' | translate) : ('NEWS_ADD.UPLOAD_IMAGES' | translate) }}
+    </ion-button>
+
+    <ion-button (click)="videoInputTemplate.click()" expand="block" fill="clear">
+      {{ videoInput ? ('NEWS_ADD.CHANGE_VIDEO' | translate) : ('NEWS_ADD.UPLOAD_VIDEO' | translate) }}
     </ion-button>
 
     <ion-item style="overflow: auto;" lines="none" *ngIf="imageUrls?.length">
       <img style="width: 100px;" class="image" *ngFor="let src of imageUrls" [src]="src" (click)="openImage(src)">
     </ion-item>
-
+    <ion-item *ngIf="videoUrl">
+      <video width="100%" controls [src]="videoUrl"></video>
+    </ion-item>
     <ion-button (click)="addNews()" expand="block" color="primary" type="submit">
       {{ 'NEWS_ADD.TITLE' | translate }}
     </ion-button>

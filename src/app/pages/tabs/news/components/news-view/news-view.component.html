@@ -7,7 +7,7 @@
     </ion-buttons>
   </ion-toolbar>
   <section *ngIf="news;else loadingProgress">
-    <div class="d-flex align-items-center">
+    <div class="d-flex align-items-center" (click)="openProfile(news.service_man?.id)">
       <img *ngIf="news?.service_man?.image" [src]="news?.service_man?.image" class="profile-image me-1">
 
 

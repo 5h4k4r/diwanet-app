@@ -4,6 +4,7 @@ import { promise } from 'selenium-webdriver';
 import { News } from 'src/app/backend/models/news.model';
 import { NewsService } from 'src/app/backend/services/news.service';
 import { ImagePreviewComponent } from 'src/app/shared/components/image-preview/image-preview.component';
+import { UserProfileComponent } from 'src/app/shared/components/user-profile/user-profile.component';
 
 @Component({
   selector: 'app-news-view',
@@ -80,6 +81,19 @@ export class NewsViewComponent implements OnInit {
     });
 
     await modal.present();
+  }
+
+  async openProfile(userId: number | undefined): Promise<void> {
+    if (!userId) return;
+    const modal = await this.modalController.create({
+      component: UserProfileComponent,
+      componentProps: { userId },
+      backdropDismiss: true,
+      swipeToClose: true,
+    });
+
+    await modal.present();
+
   }
 
   closeModal(msg?: string): void {
