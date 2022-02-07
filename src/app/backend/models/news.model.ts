@@ -11,4 +11,5 @@ export interface News {
   last_image: Image;
   images?: Image[];
   service_man: ServiceMan;
+  video?: string;
 }

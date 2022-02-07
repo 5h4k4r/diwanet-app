@@ -32,12 +32,9 @@ export class NewsService {
     return this.http.get<News>(`${this.baseUrl}/${params.id}`).toPromise();
   }
 
-  addNews(params: {
-    title: string;
-    detail: string;
-    images: string[];
-  }): Promise<News> {
+  addNews(form: FormData): Promise<News> {
 
-    return this.http.post<News>(this.baseUrl, params).toPromise();
+
+    return this.http.post<News>(this.baseUrl, form).toPromise();
   }
 }

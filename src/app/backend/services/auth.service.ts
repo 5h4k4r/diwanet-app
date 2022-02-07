@@ -1,10 +1,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { User } from '../models/user.model';
-import { LocalStorageService } from './local-storage.service';
 import { TokenStoreService } from './token-store.service';
 
 @Injectable({
@@ -15,8 +13,6 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private tokenStore: TokenStoreService,
-    private storage: LocalStorageService,
-    private router: Router,
   ) { }
 
   //#region Functions
@@ -26,23 +22,20 @@ export class AuthService {
     return await this.http.get(`${this.baseUrl}/login`, { params }).pipe(map((response: { access_token: string; user: User }) => {
 
       this.tokenStore.applyAuthToken(response.access_token);
+
       return response;
 
     })).toPromise();
   }
 
-  async logout(server: boolean = true): Promise<void> {
+  async logout(): Promise<void> {
 
-    if (!server)
-      this.localLogout();
-    else {
-      try {
-        if (this.tokenStore.accessToken)
-          await this.http.get<any>(`${this.baseUrl}/logout`).toPromise();
-      } catch (error) {
+    try {
+      if (this.tokenStore.accessToken)
+        await this.http.get<any>(`${this.baseUrl}/logout`).toPromise();
+    } catch (error) {
 
-      }
-      this.localLogout();
+
     }
   }
 
