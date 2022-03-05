@@ -2,12 +2,16 @@
   <ion-content>
     <ion-grid fixed class="header-content white-text">
       <ion-row>
-        <ion-col size="12" style="height: 4rem;width: 100%;display: flex;align-items:center;justify-content: center;">
-          <img src="/assets/images/brand/diwanet_logo_blue.png" width="50%" />
+
+        <ion-col *ngIf="user" size="12" style="width: 100%;display: flex;align-items:center;justify-content: center;">
+          <div class="text-center" (click)="openProfile()">
+            <img [src]="user?.service_man?.profile_pic" width="50px" style="border-radius:50%" />
+            <p class="mt-2">
+              {{ user.name }}
+            </p>
+          </div>
         </ion-col>
-        <!-- <ion-col size="6">
-          <div class="margin-left-10" *ngIf="showVersion"><strong>v</strong>{{version}}</div>
-        </ion-col> -->
+
       </ion-row>
     </ion-grid>
     <ion-item button detail="false" lines="none" (click)="navigate('/auth/login')" *ngIf="!accessToken?.length">

@@ -2,18 +2,21 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController, ModalController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Language } from 'src/app/backend/models/language.model';
 import { Location } from 'src/app/backend/models/location.model';
+import { User } from 'src/app/backend/models/user.model';
 import { AuthService } from 'src/app/backend/services/auth.service';
 import { LocalStorageService } from 'src/app/backend/services/local-storage.service';
 import { LocationsService } from 'src/app/backend/services/locations.service';
 import { SettingsService } from 'src/app/backend/services/settings.service';
 import { TokenStoreService } from 'src/app/backend/services/token-store.service';
+import { UserStoreService } from 'src/app/backend/services/user-store.service';
 import { SelectLocationComponent } from '../../pages/select-location/select-location.component';
 import { MessagingService } from '../../services/messaging.service';
 import { AboutContactComponent } from '../about-contact/about-contact.component';
+import { UserProfileComponent } from '../user-profile/user-profile.component';
 
 @Component({
   selector: 'app-side-nav',
@@ -33,6 +36,7 @@ export class SideNavPage implements OnInit, OnDestroy {
   private _settings: any;
   private _locations: Location[] | undefined;
   private _destroy$ = new Subject<undefined>();
+  private _user: User | undefined;
   //#endregion
 
 
@@ -45,6 +49,7 @@ export class SideNavPage implements OnInit, OnDestroy {
   get locations(): Location[] | undefined { return this._locations; }
   get accessToken(): string | undefined { return this.tokenStore.accessToken; }
 
+  get user(): User | undefined { return this._user; }
   //#endregion
 
   //#region Constructor
@@ -60,11 +65,19 @@ export class SideNavPage implements OnInit, OnDestroy {
     private storage: LocalStorageService,
     private locationsService: LocationsService,
     private messagingService: MessagingService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private userStore: UserStoreService,
   ) {
     this.messagingService.locationChange.pipe(
       takeUntil(this._destroy$)
     ).subscribe(_ => this.selectedLocation = this.storage.getObject('location'));
+
+    this.userStore.user.subscribe(u => {
+      this._user = u;
+      this.openProfile();
+    }
+    );
+
   }
 
   //#endregion
@@ -112,6 +125,20 @@ export class SideNavPage implements OnInit, OnDestroy {
 
     await modal.present();
 
+  }
+
+  async openProfile(): Promise<void> {
+
+    if (!this._user?.id) return;
+
+    const modal = await this.modalController.create({
+      component: UserProfileComponent,
+      componentProps: {
+        userId: this._user.id
+      }
+    });
+
+    await modal.present();
   }
 
   async logout(): Promise<void> {
