@@ -129,7 +129,7 @@ export class PostsPage implements OnInit, OnDestroy {
   }
 
   async addComment(postId: number, inputEvent: any): Promise<void> {
-    console.log(postId, inputEvent.value);
+
     try {
       const response = await this.commentsService.addComment({
         customer_post_id: postId,
