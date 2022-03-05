@@ -27,6 +27,7 @@
     "NAME": "Name",
     "USERNAME": "Username",
     "PASSWORD": "Password",
+    "CONFIRM_PASSWORD": "Confirm Password",
     "PHONE": "Phone",
     "EMAIL": "Email",
     "ABOUT": "About",
