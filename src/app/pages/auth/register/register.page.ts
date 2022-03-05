@@ -23,21 +23,21 @@ export class RegisterPage implements OnInit {
   imageInput: any;
   selectedCountry: Location | undefined;
   ngForm = this.fb.group({
-    name: ['name', Validators.required],
-    password: ['1q2w3e', Validators.required],
-    phone: ['123123', Validators.required],
-    category_id: [1, Validators.required],
-    country_id: [2, Validators.required],
-    location_id: [2, Validators.required],
-    price: [123, Validators.required],
-    price_type: ['hour', Validators.required],
-    email: ['e@mail.com', Validators.email],
-    image: [null],
-    about: ['about'],
+    name: ['', Validators.required],
+    password: ['', Validators.required],
+    phone: ['', Validators.required],
+    category_id: [null, Validators.required],
+    country_id: [null, Validators.required],
+    location_id: [null, Validators.required],
+    price: [null, Validators.required],
+    price_type: ['', Validators.required],
+    email: ['', Validators.email],
+    profile_pic: [null],
+    about: [''],
     facebook: [''],
     instagram: [''],
     snapchat: [''],
-  });;
+  });
   // tslint:disable: variable-name
   passwordType = 'password';
   passwordIcon = 'eye-off-outline';
@@ -96,7 +96,7 @@ export class RegisterPage implements OnInit {
     try {
       const response: RegisterResponse = await this.authService.register({
         ...formData,
-        image: this.base64textString
+        profile_pic: this.base64textString
       });
       this.tokenStore.applyAuthToken(response.access_token);
       await this.resolveRoute();
