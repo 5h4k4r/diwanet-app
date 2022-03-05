@@ -13,7 +13,7 @@ export interface ServiceMan extends User {
   };
   category?: Category;
   service_cat_id?: number;
-  image?: string;
+  profile_pic?: string;
   lat?: number;
   long?: number;
   vip?: number;
@@ -27,4 +27,5 @@ export interface ServiceMan extends User {
     rating: string;
   }>;
   review: Array<Review>;
+  images: Array<string>;
 }

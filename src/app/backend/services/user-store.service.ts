@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { User } from '../models/user.model';
-import { UsersService } from './users.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +9,7 @@ export class UserStoreService {
   //#region Fields
   private _readySubject$ = new Subject();
   private _isReady$ = this._readySubject$.toPromise();
-  private _user: User | undefined;
+  private _user = new BehaviorSubject(null);
 
   //#endregion
 
@@ -21,8 +20,11 @@ export class UserStoreService {
     return this._isReady$;
   }
 
-  get user(): User | undefined {
-    return this._user;
+  get user(): Observable<User> {
+    return this._user.asObservable();
+  }
+  get userValue(): User {
+    return this._user.value;
   }
 
 
@@ -37,7 +39,9 @@ export class UserStoreService {
 
 
   //#endregion
-
+  setUser(user: User): void {
+    this._user.next(user);
+  }
 
   //#region Functions
 

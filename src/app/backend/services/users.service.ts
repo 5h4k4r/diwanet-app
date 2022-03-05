@@ -3,6 +3,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ServiceMan } from '../models/serviceman.model';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,14 @@ export class UsersService {
 
 
   //#region Functions
+  getSelf(): Promise<User> {
+    return this.http.get(`${this.baseUrl}/self`).toPromise();
 
+  }
+  updateSelf(params: ServiceMan): Promise<User> {
+    return this.http.post(`${this.baseUrl}/self`, params).toPromise();
+
+  }
 
   listServiceMen(params?: {
     service_cat_id?: number;
