@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Language } from './backend/models/language.model';
 import { LocalStorageService } from './backend/services/local-storage.service';
+import { UserStoreService } from './backend/services/user-store.service';
+import { UsersService } from './backend/services/users.service';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +17,9 @@ export class AppComponent {
 
   constructor(
     private translate: TranslateService,
-    private storage: LocalStorageService
+    private storage: LocalStorageService,
+    private userStore: UserStoreService,
+    private usersService: UsersService,
   ) {
     this.translate.onLangChange.subscribe(response => {
       this.storage.setString('lang', response.lang);
@@ -38,10 +42,15 @@ export class AppComponent {
       vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty('--vh', `${vh}px`);
     };
+    this.getSelf();
+
   }
 
 
   //#endregion
+
+  //#region Functions
+
   initTranslate(language: Language) {
     // Set the default language for translation strings, and the current language.
     this.translate.setDefaultLang('en');
@@ -61,8 +70,20 @@ export class AppComponent {
 
 
 
-  //#region Functions
 
   //#endregion
 
+  //#region Private Functions
+  private async getSelf(): Promise<void> {
+    try {
+      const response = await this.usersService.getSelf();
+
+      this.userStore.setUser(response);
+
+    } catch (error) {
+
+    }
+  }
+
+  //#endregion
 }

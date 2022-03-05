@@ -13,6 +13,7 @@ import { RequestInterceptor } from './interceptors/request.interceptor';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 // eslint-disable-next-line @typescript-eslint/naming-convention, prefer-arrow/prefer-arrow-functions
@@ -31,6 +32,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     SideNavPageModule,
     NgxStarRatingModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
