@@ -1,4 +1,4 @@
-<google-map id="dashboardMap" width="100%" [center]="center" [zoom]="zoom">
+<google-map id="dashboardMap" width="100%" [center]="center" [zoom]="zoom" (mapClick)="clicked($event)">
   <map-marker #marker="mapMarker" *ngFor="let markerPosition of markerPositions; let index = index"
     [position]="markerPosition" [options]="markerOptions" (mapClick)="openInfoWindow(marker, infoWindow, index)">
 

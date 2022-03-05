@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MapInfoWindow, MapMarker } from '@angular/google-maps';
 import { Subject } from 'rxjs';
 import { ServiceMan } from 'src/app/backend/models/serviceman.model';
@@ -14,7 +14,7 @@ export class UserOnMapComponent implements OnInit {
   @ViewChild(MapInfoWindow) infoWindow?: MapInfoWindow;
   @Input() users: ServiceMan[];
   @Input() zoom = 12;
-
+  @Output() clickedOnMap = new EventEmitter();
 
 
 
@@ -59,6 +59,10 @@ export class UserOnMapComponent implements OnInit {
     infoWindow.open(marker);
   }
 
+  clicked(e: any): void {
+    console.log(e);
+  }
+
   //#endregion
 
   //#region Private Functions
@@ -73,9 +77,6 @@ export class UserOnMapComponent implements OnInit {
       this.markerPositions.push(latLng);
       this.center = latLng;
     }
-
-
-
 
   }
   //#endregion
