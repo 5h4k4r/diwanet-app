@@ -5,15 +5,20 @@
         <ion-icon slot="icon-only" name="close-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="startEditing()" expand="block" fill="clear" color="light">
+        Edit
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" *ngIf="!loading">
+<ion-content [fullscreen]="true" *ngIf="!loading && user">
   <div class="top-part">
 
     <ion-row>
       <ion-col size="12" class="text-center">
-        <img [src]="user?.image" alt="" class="user-image">
+        <img [src]="user?.profile_pic" alt="" class="user-image">
         <p class="mt-2 light-color">{{ user?.name }}
           <ng-container *ngIf="user?.category?.name">
             . <strong>{{ user?.category?.name }}</strong>
@@ -27,7 +32,7 @@
     <ion-segment-button value="profile">
       <ion-label>{{ 'USER_PROFILE.PROFILE' | translate }}</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="review">
+    <ion-segment-button value="review" *ngIf="!self">
       <ion-label>{{ 'USER_PROFILE.REVIEWS' | translate }}</ion-label>
     </ion-segment-button>
     <ion-segment-button value="map" *ngIf="user?.lat && user?.long">
@@ -37,49 +42,61 @@
   <div [ngSwitch]="segmentValue">
     <ion-list *ngSwitchCase="'profile'">
 
-      <div class="user-info" *ngIf="user?.location?.name !== null">
-        <label>{{ 'USER_PROFILE.LOCATION' | translate }}</label>
-        <p>{{ user?.location?.name }}</p>
-      </div>
+      <ng-container *ngIf="!editProfile;else editUserProfile">
+        <div class="user-info" *ngIf="user?.location?.name !== null">
+          <label>{{ 'USER_PROFILE.LOCATION' | translate }}</label>
+          <p>{{ user?.location?.name }}</p>
+        </div>
 
-      <div class="user-info" *ngIf="user?.address">
-        <label>{{ 'USER_PROFILE.ADDRESS' | translate }}</label>
-        <p>{{ user.address }}</p>
-      </div>
+        <div class="user-info" *ngIf="user?.address">
+          <label>{{ 'USER_PROFILE.ADDRESS' | translate }}</label>
+          <p>{{ user.address }}</p>
+        </div>
 
-      <div class="user-info" *ngIf="user?.price_type !== null && user?.price !== null">
-        <label>{{ 'USER_PROFILE.PRICE' | translate }}</label>
-        <p>{{ user?.price }} {{ 'USER_PROFILE.PER' | translate }} {{ user?.price_type }}</p>
-      </div>
+        <div class="user-info" *ngIf="user?.price_type !== null && user?.price !== null">
+          <label>{{ 'USER_PROFILE.PRICE' | translate }}</label>
+          <p>{{ user?.price }} {{ 'USER_PROFILE.PER' | translate }} {{ user?.price_type }}</p>
+        </div>
 
-      <div class="user-info" *ngIf="user?.phone">
-        <label>{{ 'USER_PROFILE.PHONE' | translate }}</label>
-        <p>
-          <a [href]="'tel:'+user.phone">{{ user?.phone }}</a>
-        </p>
-      </div>
+        <div class="user-info" *ngIf="user?.phone">
+          <label>{{ 'USER_PROFILE.PHONE' | translate }}</label>
+          <p>
+            <a [href]="'tel:'+user.phone">{{ user?.phone }}</a>
+          </p>
+        </div>
 
-      <div class="user-info" *ngIf="user?.facebook">
-        <label>{{ 'USER_PROFILE.FACEBOOK' | translate }}</label>
-        <a [href]="'facebook.com/'+user?.facebook">{{ user?.facebook }}</a>
-      </div>
+        <div class="user-info" *ngIf="user?.facebook">
+          <label>{{ 'USER_PROFILE.FACEBOOK' | translate }}</label>
+          <p><a [href]="'facebook.com/'+user?.facebook">{{ user?.facebook }}</a></p>
+        </div>
 
-      <div class="user-info" *ngIf="user?.instagram">
-        <label>{{ 'USER_PROFILE.INSTAGRAM' | translate }}</label>
-        <a [href]="'instagram.com/'+user?.instagram">{{ user?.instagram }}</a>
-      </div>
+        <div class="user-info" *ngIf="user?.instagram">
+          <label>{{ 'USER_PROFILE.INSTAGRAM' | translate }}</label>
+          <p><a [href]="'instagram.com/'+user?.instagram">{{ user?.instagram }}</a></p>
+        </div>
 
-      <div class="user-info" *ngIf="user?.snapchat">
-        <label>{{ 'USER_PROFILE.SNAPCHAT' | translate }}</label>
-        <a [href]="'snapchat.com/'+user?.snapchat">{{ user?.snapchat }}</a>
-      </div>
+        <div class="user-info" *ngIf="user?.snapchat">
+          <label>{{ 'USER_PROFILE.SNAPCHAT' | translate }}</label>
+          <p><a [href]="'snapchat.com/'+user?.snapchat">{{ user?.snapchat }}</a></p>
+        </div>
 
 
-      <div class="user-info" *ngIf="user?.about">
-        <label>{{ 'USER_PROFILE.ABOUT' | translate }}</label>
-        <div [innerHtml]="user.about"></div>
-      </div>
+        <div class="user-info" *ngIf="user?.about">
+          <label>{{ 'USER_PROFILE.ABOUT' | translate }}</label>
+          <div [innerHtml]="user?.about"></div>
+        </div>
 
+        <div class="user-info" *ngIf="user?.images">
+          <label>{{ 'USER_PROFILE.ABOUT' | translate }}</label>
+
+          <div class="d-flex flex-wrap align-items-center justify-content-between">
+
+            <div> <img style="width:calc(50% - 10px); margin:5px;max-width: 500px;" *ngFor="let image of user?.images"
+                [src]="image" (click)="openImage(image)"></div>
+          </div>
+        </div>
+
+      </ng-container>
 
     </ion-list>
 
@@ -117,4 +134,215 @@
     </div>
 
   </div>
+
 </ion-content>
+
+
+<ng-template #editUserProfile>
+  <div [formGroup]="userForm">
+    <ion-row>
+      <ion-col size="12">
+        <ion-item lines="full">
+          <ion-label position="stacked">{{ 'SIGN_UP.NAME' | translate }}</ion-label>
+          <ion-input inputmode="text" enterkeyhint="next" type="text" formControlName="name" required>
+          </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-item lines="full">
+          <ion-label position="stacked">{{ 'SIGN_UP.PASSWORD' | translate }}</ion-label>
+          <ion-input inputmode="text" type="password" formControlName="old_password" style="width: 90%;"
+            enterkeyhint="next">
+          </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-item lines="full">
+          <ion-label position="stacked">{{ 'SIGN_UP.CONFIRM_PASSWORD' | translate }}</ion-label>
+          <ion-input inputmode="text" type="password" formControlName="new_password" style="width: 90%;"
+            enterkeyhint="next">
+          </ion-input>
+        </ion-item>
+        <ion-item *ngIf="userForm.controls.new_password.errors?.length && submitted" lines="none">
+          <p class="danger-color m-0">Passwords are not the same
+          </p>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-item lines="full">
+          <ion-label position="stacked">{{ 'SIGN_UP.PHONE' | translate }}</ion-label>
+          <ion-input enterkeyhint="next" type="text" formControlName="phone" required>
+          </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-item lines="full">
+          <ion-label position="stacked">{{ 'SIGN_UP.EMAIL' | translate }}</ion-label>
+          <ion-input inputmode="email" enterkeyhint="next" type="email" formControlName="email">
+          </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-item lines="full">
+          <ion-label position="stacked">{{ 'SIGN_UP.ABOUT' | translate }}</ion-label>
+          <ion-textarea inputmode="text" type="text" formControlName="about"></ion-textarea>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-item lines="full">
+          <ion-label position="stacked">{{ 'SIGN_UP.CATEGORY' | translate }}</ion-label>
+          <ion-select cancelText="Cancel" okText="Select" formControlName="category_id">
+            <ion-select-option *ngFor="let item of categories" [value]="item.id">{{ item.name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-item lines="full">
+          <ion-label position="stacked">{{ 'SIGN_UP.PRICE' | translate }}</ion-label>
+          <ion-input inputmode="number" enterkeyhint="next" type="number" formControlName="price">
+          </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-item lines="full">
+          <ion-label position="stacked">{{ 'SIGN_UP.PRICE_TYPE' | translate }}</ion-label>
+          <ion-select cancelText="Cancel" okText="Select" formControlName="price_type">
+            <ion-select-option value="day">{{ 'SIGN_UP.DAY' | translate }}</ion-select-option>
+            <ion-select-option value="hour">{{ 'SIGN_UP.HOUR' | translate }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item *ngIf="userForm.controls.price_type.errors?.required && submitted" lines="none">
+          <p class="danger-color m-0">This field is required
+          </p>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-item lines="full">
+          <ion-label position="stacked">{{ 'SIGN_UP.COUNTRY' | translate }}</ion-label>
+          <ion-select cancelText="Cancel" okText="Select" (ionChange)="countryChanged($event)"
+            formControlName="country_id">
+            <ion-select-option *ngFor="let item of countries" [value]="item.id">
+              {{ item.name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-item lines="full">
+          <ion-label position="stacked">{{ 'SIGN_UP.CITY' | translate }}</ion-label>
+          <ion-select cancelText="Cancel" okText="Select" formControlName="location_id">
+            <ion-select-option *ngFor="let item of cities" [value]="item.id">{{ item.name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12">
+        <ion-item lines="full">
+          <ion-label position="stacked">{{ 'SIGN_UP.PROFILE_PIC' | translate }}</ion-label>
+
+
+          <div class="d-flex align-items-center justify-content-between">
+            <ion-button class="my-2" (click)="input.click()" expand="block" fill="clear">
+              {{ !base64textString?.length ? 'Upload' : 'Change' }} {{ 'SIGN_UP.IMAGE' | translate }}
+            </ion-button>
+            <img class="my-2" style="width: 15%;" [src]="imageUrl" alt="">
+          </div>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-item lines="full">
+          <ion-label position="stacked">{{ 'SIGN_UP.PROFILE_PIC' | translate }}</ion-label>
+
+
+          <div class="d-flex align-items-center justify-content-between">
+            <ion-button class="my-2" (click)="multipleImage.click()" expand="block" fill="clear">
+              {{ !base64textStrings?.length ? 'Upload' : 'Change' }} {{ 'SIGN_UP.IMAGE' | translate }}
+            </ion-button>
+          </div>
+        </ion-item>
+        <ion-item *ngIf="base64textStrings?.length > 0" lines="none">
+          <p class="danger-color m-0">Please insert less than 5 images </p>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-item lines="full">
+          <ion-label position="stacked">{{ 'SIGN_UP.FACEBOOK_LINK' | translate }} ({{ 'SIGN_UP.OPTIONAL' |
+            translate }})</ion-label>
+          <ion-input inputmode="text" type="text" formControlName="facebook"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-item lines="full">
+          <ion-label position="stacked">{{ 'SIGN_UP.INSTAGRAM_LINK' | translate }} ({{ 'SIGN_UP.OPTIONAL' |
+            translate }})</ion-label>
+          <ion-input inputmode="text" type="text" formControlName="instagram"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-item lines="full">
+          <ion-label position="stacked">{{ 'SIGN_UP.SNAPCHAT_LINK' | translate }} ({{ 'SIGN_UP.OPTIONAL' |
+            translate }})</ion-label>
+          <ion-input inputmode="text" type="text" formControlName="snapchat"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-item lines="full" style="height: 400px;">
+          <ion-label position="stacked">Map</ion-label>
+          <app-user-on-map></app-user-on-map>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-button type="submit" expand="block" [disabled]="(userForm.invalid && submitted) || loading"
+          (click)="saveProfile()">
+          {{ 'SIGN_UP.SUBMIT_BTN' | translate }}</ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12" class="ion-text-center">
+        <ion-text color="danger">
+          <span>{{error}}</span>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+  </div>
+</ng-template>
+
+<input #input type="file" class="invisible" id="fileUploader" accept="image/*" (change)="processFile(input)">
+<input #multipleImage type="file" class="invisible" id="fileUploader" multiple accept="image/*"
+  (change)="processFile(multipleImage)">
