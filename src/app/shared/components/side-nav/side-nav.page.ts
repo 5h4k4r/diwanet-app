@@ -63,7 +63,6 @@ export class SideNavPage implements OnInit, OnDestroy {
     private tokenStore: TokenStoreService,
     private authService: AuthService,
     private storage: LocalStorageService,
-    private locationsService: LocationsService,
     private messagingService: MessagingService,
     private translate: TranslateService,
     private userStore: UserStoreService,
@@ -74,7 +73,6 @@ export class SideNavPage implements OnInit, OnDestroy {
 
     this.userStore.user.subscribe(u => {
       this._user = u;
-      this.openProfile();
     }
     );
 
@@ -143,6 +141,10 @@ export class SideNavPage implements OnInit, OnDestroy {
 
   async logout(): Promise<void> {
     await this.authService.logout();
+    this.storage.removeKey('token');
+    this.tokenStore.applyAuthToken(null);
+    this.userStore.setUser(null);
+
     this.menuController.close('main-menu');
 
   }

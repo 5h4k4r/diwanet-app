@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { User } from '../models/user.model';
 import { TokenStoreService } from './token-store.service';
+import { UserStoreService } from './user-store.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private tokenStore: TokenStoreService,
+    private userStore: UserStoreService
   ) { }
 
   //#region Functions
@@ -22,7 +24,7 @@ export class AuthService {
     return await this.http.get(`${this.baseUrl}/login`, { params }).pipe(map((response: { access_token: string; user: User }) => {
 
       this.tokenStore.applyAuthToken(response.access_token);
-
+      this.userStore.setUser(response.user);
       return response;
 
     })).toPromise();
