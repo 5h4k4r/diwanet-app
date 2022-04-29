@@ -5,7 +5,7 @@
         <ion-icon slot="icon-only" name="close-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-buttons slot="end">
+    <ion-buttons slot="end" *ngIf="self">
       <ion-button (click)="startEditing()" expand="block" fill="clear" color="light">
         Edit
       </ion-button>
@@ -65,20 +65,27 @@
           </p>
         </div>
 
-        <div class="user-info" *ngIf="user?.facebook">
-          <label>{{ 'USER_PROFILE.FACEBOOK' | translate }}</label>
-          <p><a [href]="'facebook.com/'+user?.facebook">{{ user?.facebook }}</a></p>
-        </div>
+        <ion-row class="ion-justify-content-center">
 
-        <div class="user-info" *ngIf="user?.instagram">
-          <label>{{ 'USER_PROFILE.INSTAGRAM' | translate }}</label>
-          <p><a [href]="'instagram.com/'+user?.instagram">{{ user?.instagram }}</a></p>
-        </div>
+          <ion-col *ngIf="user?.facebook">
+            <ion-button [href]="'facebook.com/'+user?.facebook" size="large" class="facebook">
+              <ion-icon name="logo-facebook"></ion-icon>
+            </ion-button>
+          </ion-col>
 
-        <div class="user-info" *ngIf="user?.snapchat">
-          <label>{{ 'USER_PROFILE.SNAPCHAT' | translate }}</label>
-          <p><a [href]="'snapchat.com/'+user?.snapchat">{{ user?.snapchat }}</a></p>
-        </div>
+          <ion-col *ngIf="user?.instagram">
+            <ion-button [href]="'instagram.com/'+user?.instagram" size="large" class="instagram">
+              <ion-icon name="logo-instagram"></ion-icon>
+            </ion-button>
+          </ion-col>
+
+          <ion-col *ngIf="user?.snapchat">
+            <ion-button [href]="'snapchat.com/'+user?.snapchat" size="large" class="snapchat">
+              <ion-icon name="logo-snapchat"></ion-icon>
+            </ion-button>
+          </ion-col>
+
+        </ion-row>
 
 
         <div class="user-info" *ngIf="user?.about">
@@ -87,7 +94,7 @@
         </div>
 
         <div class="user-info" *ngIf="user?.images">
-          <label>{{ 'USER_PROFILE.ABOUT' | translate }}</label>
+          <label>{{ 'USER_PROFILE.IMAGES' | translate }}</label>
 
           <div class="d-flex flex-wrap align-items-center justify-content-between">
 

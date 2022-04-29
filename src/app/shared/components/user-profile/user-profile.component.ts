@@ -129,7 +129,7 @@ export class UserProfileComponent implements OnInit {
     await this.presentLoading();
     try {
       this._loading = true;
-      console.log(user);
+
       if (user)
         this._user = user.service_man;
       else
